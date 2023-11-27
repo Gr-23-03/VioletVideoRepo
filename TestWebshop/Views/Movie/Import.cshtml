@@ -1,0 +1,38 @@
+﻿@using TestWebshop.Models;
+@model List<MovieViewModel>
+@{
+    ViewData["Title"] = "Import";
+}
+
+<h1>Import</h1>
+
+<form asp-controller="Movie" asp-action="Import" method="post" class="d-flex">
+    <input type="text" class="form-control me-2" name="query" />
+    <button type="submit">Search</button>
+</form>
+
+<br /> <br />
+<div class="row">
+@if (Model != null && Model.Any())
+{
+    @foreach (var movie in Model)
+    {
+       
+        <div class="col-md-3 mb-4">
+            <div class="card h-100">
+                <img src="@movie.Poster" class="card-img-top" alt="@movie.Title" />
+                <div class="card-body text-center">
+                    <h5 class="card-title">
+                        @(string.IsNullOrWhiteSpace(movie.Title) ? "<span class='No title available'</span>" : movie.Title)
+                    </h5>
+                </div>
+                <div class="card-footer text-center">
+                    <!-- Implement functionallity to see if a movie was already added -->
+                    <!-- Implement input field for price when addning Movie -->
+                    <a href="@Url.Action("ImportImdb", "Movie", new { imdb = movie.imdbID})" class="btn btn-primary">Add Movie</a>
+                </div>
+            </div>
+        </div>     
+    }
+}
+</div>
