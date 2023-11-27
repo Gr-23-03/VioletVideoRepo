@@ -4,6 +4,10 @@ namespace TestWebshop.Models.Database
 {
     public class Customer
     {
+        public Customer()
+        {
+                Orders = new List<Order>();
+        }
 
         //[Key]
         //public int Id { get; set; }
@@ -58,7 +62,7 @@ namespace TestWebshop.Models.Database
 
         [Required]
         [StringLength(20)]
-        [Display(Name = "ZipCode")]
+        [Display(Name = "DeliveryZipCode")]
         public string DeliveryZip { get; set; }
 
 

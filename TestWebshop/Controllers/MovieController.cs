@@ -50,11 +50,11 @@ namespace TestWebshop.Controllers
 
 
         // GET: Movies
-        
+
         public async Task<IActionResult> Index(string movieGenre, string searchString)
         {
             //  LINQ to get list of genres.
-            IQueryable<string> genreQuery = from m in _db.Movies       
+            IQueryable<string> genreQuery = from m in _db.Movies
                                             orderby m.Genre
                                             select m.Genre;
 
@@ -102,7 +102,7 @@ namespace TestWebshop.Controllers
 
 
 
-       
+
         [HttpPost]
         public async Task<IActionResult> Import(string query)
         {
