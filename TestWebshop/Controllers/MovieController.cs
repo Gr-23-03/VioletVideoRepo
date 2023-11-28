@@ -18,17 +18,20 @@ namespace TestWebshop.Controllers
             _movieService = MovieService;
             _db = db;
         }
-        //public IActionResult Index()
-        //{
-        //    //List<Movie> objList = new List<Movie>();
-        //    var objList = _db.Movies.ToList();
-
-        //    return View(objList);
-        //}
 
 
 
-        //to 
+        ////public IActionResult Index()
+        ////{
+        ////    //List<Movie> objList = new List<Movie>();
+        ////    var objList = _db.Movies.ToList();
+
+        ////    return View(objList);
+        ////}
+
+
+
+        
 
         // GET: Movies/Create
         public IActionResult Create()
@@ -39,8 +42,9 @@ namespace TestWebshop.Controllers
 
 
         // POST: Movies/Create
-        [HttpPost]
-        public IActionResult Create(Movie obj)
+
+       [HttpPost]
+         public IActionResult Create(Movie obj)
         {
             _db.Movies.Add(obj);
             _db.SaveChanges();
@@ -49,12 +53,8 @@ namespace TestWebshop.Controllers
         }
 
 
-
-
-
-
         // GET: Movies
-        
+
         public async Task<IActionResult> Index(string movieGenre, string searchString)
         {
             //  LINQ to get list of genres.
@@ -84,12 +84,43 @@ namespace TestWebshop.Controllers
 
 
 
+        // Delete
+
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var movie = await _db.Movies
+                .SingleOrDefaultAsync(m => m.Id == id);
+
+            if (movie == null)
+            {
+                return NotFound();
+            }
+
+            return View(movie);
+        }
 
 
+        // POST: Movies/Delete
 
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var movie = await _db.Movies.SingleOrDefaultAsync(m => m.Id == id);
+            _db.Movies.Remove(movie);
+            await _db.SaveChangesAsync();
+            return RedirectToAction("Index");
+        }
 
-
-
+        private bool MovieExists(int id)
+        {
+            return _db.Movies.Any(e => e.Id == id);
+        }
 
 
 
