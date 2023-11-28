@@ -24,7 +24,8 @@ namespace TestWebshop.Models.Database
         [DataType(DataType.Currency)]
         public decimal Price { get; set; }
 
-        public string Genre { get; set; }
+
+        public string Genre { get; set; } = "";
 
         public string ImageURL { get; set; }
 
