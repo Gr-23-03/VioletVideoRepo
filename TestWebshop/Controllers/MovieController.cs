@@ -84,6 +84,25 @@ namespace TestWebshop.Controllers
 
 
 
+        // GET: Movies/Details
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var movie = await _db.Movies
+                .SingleOrDefaultAsync(m => m.Id == id);
+            if (movie == null)
+            {
+                return NotFound();
+            }
+
+            return View(movie);
+        }
+
+
         // Delete
 
         public async Task<IActionResult> Delete(int? id)
