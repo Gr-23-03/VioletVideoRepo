@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using System.Net;
 using TestWebshop.Data;
 using TestWebshop.Models;
 using TestWebshop.Models.Database;
@@ -94,6 +95,7 @@ namespace TestWebshop.Controllers
 
             var movie = await _db.Movies
                 .SingleOrDefaultAsync(m => m.Id == id);
+
             if (movie == null)
             {
                 return NotFound();
@@ -101,6 +103,62 @@ namespace TestWebshop.Controllers
 
             return View(movie);
         }
+
+
+
+        //Edit
+        //GET
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var movie = await _db.Movies.SingleOrDefaultAsync(m => m.Id == id);
+            if (movie == null)
+            {
+                return NotFound();
+            }
+            return View(movie);
+        }
+
+        // POST: Movies/Edit/
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Director,ReleaseYear,Price,Genre,ImageURL")] Movie movie)
+        {
+            if (id != movie.Id)
+            {
+                return NotFound();
+            }
+
+            if (!ModelState.IsValid)
+            {
+                try
+                {
+                    _db.Update(movie);
+                    await _db.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!MovieExists(movie.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction("Index");
+            }
+            return View(movie);
+        }
+
+
+    
 
 
         // Delete
