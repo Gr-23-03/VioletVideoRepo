@@ -56,43 +56,17 @@ namespace TestWebshop.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-
-
-
-
-
-        [HttpPost]
-        public IActionResult Create(Customer obj)
+        public async Task<IActionResult> Create( Customer customer)
         {
-            _context.Customers.Add(obj);
-            _context.SaveChanges();
-
-            return RedirectToAction("Index");
+            if (ModelState.IsValid)
+            {
+                _context.Add(customer);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(customer);
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-        //public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,BillingAddress,BillingCity,BillingZip,DeliveryAddress,DeliveryCity,DeliveryZip,EmailAddress,Phone")] Customer customer)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        _context.Add(customer);
-        //        await _context.SaveChangesAsync();
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    return View(customer);
-        //}
-
+        
         // GET: Customers/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
