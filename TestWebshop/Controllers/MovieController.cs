@@ -248,6 +248,8 @@ namespace TestWebshop.Controllers
             return View(_db.Movies.ToList());
         }
 
+
+
         public ActionResult LatestMovies()
         {
 

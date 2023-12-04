@@ -285,36 +285,6 @@ namespace TestWebshop.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Customers");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            BillingAddress = "Gorvagen",
-                            BillingCity = "Finspång",
-                            BillingZip = "231D",
-                            DeliveryAddress = "Gorvagen",
-                            DeliveryCity = "Finspång",
-                            DeliveryZip = "231D",
-                            EmailAddress = "123abc@gmail.com",
-                            FirstName = "Spurti",
-                            LastName = "Salimath",
-                            Phone = "078675432"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            BillingAddress = "Tegelbrukt",
-                            BillingCity = "Finspång",
-                            BillingZip = "231E",
-                            DeliveryAddress = "Gorvagen",
-                            DeliveryCity = "Finspång",
-                            DeliveryZip = "231D",
-                            EmailAddress = "abc@gmail.com",
-                            FirstName = "Evan",
-                            LastName = "Andrew",
-                            Phone = "078675444"
-                        });
                 });
 
             modelBuilder.Entity("TestWebshop.Models.Database.Movie", b =>
@@ -360,7 +330,7 @@ namespace TestWebshop.Data.Migrations
                             Id = 1,
                             Director = " Christopher McQuarrie",
                             Genre = "Action",
-                            ImageURL = "https://www.google.com/url?sa=i&url=https%3A%2F%2Fthedailyguardian.com%2Fmission-impossible-dead-reckoning-part-one%2F&psig=AOvVaw27TCwGYi98csvR-I9ttZ2m&ust=1701096883765000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCICusu714YIDFQAAAAAdAAAAABAE",
+                            ImageURL = "https://media.ginza.se/Images/item_img_150/15084.jpg",
                             Price = 129m,
                             ReleaseYear = 2023,
                             Title = "Mission Impossible"
@@ -370,7 +340,7 @@ namespace TestWebshop.Data.Migrations
                             Id = 2,
                             Director = "Tom Harper",
                             Genre = "Action",
-                            ImageURL = "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.imdb.com%2Ftitle%2Ftt13603966%2F&psig=AOvVaw0XQE71_lOUgZELqCt4Xsd6&ust=1701096791642000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCLD0xsL14YIDFQAAAAAdAAAAABAE",
+                            ImageURL = "https://media.ginza.se/Images/item_img_150/138194.jpg",
                             Price = 299m,
                             ReleaseYear = 2023,
                             Title = "Heart of Stone"
@@ -380,7 +350,7 @@ namespace TestWebshop.Data.Migrations
                             Id = 3,
                             Director = "Rob Reiner",
                             Genre = "Romantic Comedy",
-                            ImageURL = "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.imdb.com%2Ftitle%2Ftt0098635%2F&psig=AOvVaw3Au9W4p6cLjjvgaDHpHjAN&ust=1701107299984000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCLDXhdWc4oIDFQAAAAAdAAAAABAE",
+                            ImageURL = "https://media.ginza.se/Images/item_img_150/13909.jpg",
                             Price = 77m,
                             ReleaseYear = 1989,
                             Title = "When Harry Met Sally"
@@ -390,7 +360,7 @@ namespace TestWebshop.Data.Migrations
                             Id = 4,
                             Director = "Ivan Reitman",
                             Genre = "Comedy",
-                            ImageURL = "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.imdb.com%2Ftitle%2Ftt0087332%2F&psig=AOvVaw2rGeYGMa_IcNckkUqqUKqN&ust=1701107357993000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCID-0_Cc4oIDFQAAAAAdAAAAABAK",
+                            ImageURL = "https://media.ginza.se/Images/item_img_150/409994.jpg",
                             Price = 177m,
                             ReleaseYear = 1984,
                             Title = "Ghostbusters "
@@ -419,15 +389,6 @@ namespace TestWebshop.Data.Migrations
                     b.HasIndex("CustomerId");
 
                     b.ToTable("Orders");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CustomerId = 1,
-                            OrderDate = new DateTime(2023, 11, 29, 16, 10, 2, 854, DateTimeKind.Local).AddTicks(8124),
-                            OrderPrice = 129m
-                        });
                 });
 
             modelBuilder.Entity("TestWebshop.Models.Database.OrderRow", b =>

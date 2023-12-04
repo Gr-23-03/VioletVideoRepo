@@ -44,6 +44,7 @@
 
                 @Html.DisplayNameFor(model => model.movies[0].ImageURL)
 
+             
 
             </th>
         </tr>
@@ -66,8 +67,17 @@
                 @Html.DisplayFor(modelItem => item.Price)
             </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.ImageURL)
+                    <img src="@Html.DisplayFor(modelItem => item.ImageURL)" style="width: 50px">
                 </td>
+
+                @{
+                    var imageLink = item.ImageURL;
+                }
+
+               @*  <td>
+                    <img src="@imageLink" alt="ImageURL" width="300" height="200" />
+                </td> *@
+
 
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
