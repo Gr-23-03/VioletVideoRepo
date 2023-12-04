@@ -28,12 +28,12 @@
 <table class="table">
     <thead>
         <tr>
-            <th>
+            @* <th> *@
 
 @*                 @Html.DisplayNameFor(model => model.movies[0].ImageURL)
  *@
 
-            </th>
+            @* </th> *@
 
             <th>
                 @Html.DisplayNameFor(model => model.movies[0].Title)
@@ -50,6 +50,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.movies[0].ImageURL)
             </th>
+            <th></th>
         </tr>
     </thead>
 
@@ -57,10 +58,6 @@
     <tbody>
 @foreach (var item in Model.movies) {
         <tr>
-                <td>
-                    <img src="@Html.DisplayFor(modelItem => item.ImageURL)" style="width: 50px">
-                </td>
-
             <td>
                 @Html.DisplayFor(modelItem => item.Title)
             </td>
@@ -74,11 +71,8 @@
                 @Html.DisplayFor(modelItem => item.Price)
             </td>
                 <td>
-                    <img src="@Html.DisplayFor(modelItem => item.ImageURL)" style="width: 50px">
+                    <img src="@item.ImageURL" alt="Poster for the movie @item.Title" style="width: 50px">
                 </td>
-                @{
-                    var imageLink = item.ImageURL;
-                }
 
                @*  <td>
                     <img src="@imageLink" alt="ImageURL" width="300" height="200" />
