@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using System.Drawing.Printing;
 using TestWebshop.Data;
 using TestWebshop.Models;
 using TestWebshop.Models.Database;
@@ -47,8 +48,6 @@ namespace TestWebshop.Controllers
 
 
 
-
-
         // GET: Movies
 
         public async Task<IActionResult> Index(string movieGenre, string searchString)
@@ -80,21 +79,6 @@ namespace TestWebshop.Controllers
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         public IActionResult Import()
         {
             return View();
@@ -117,5 +101,21 @@ namespace TestWebshop.Controllers
         }
 
 
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
     }
+
+
 }
