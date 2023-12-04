@@ -13,21 +13,6 @@ namespace TestWebshop.Data.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DeleteData(
-                table: "Customers",
-                keyColumn: "Id",
-                keyValue: 2);
-
-            migrationBuilder.DeleteData(
-                table: "Orders",
-                keyColumn: "Id",
-                keyValue: 1);
-
-            migrationBuilder.DeleteData(
-                table: "Customers",
-                keyColumn: "Id",
-                keyValue: 1);
-
             migrationBuilder.UpdateData(
                 table: "Movies",
                 keyColumn: "Id",
@@ -60,15 +45,6 @@ namespace TestWebshop.Data.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.InsertData(
-                table: "Customers",
-                columns: new[] { "Id", "BillingAddress", "BillingCity", "BillingZip", "DeliveryAddress", "DeliveryCity", "DeliveryZip", "EmailAddress", "FirstName", "LastName", "Phone" },
-                values: new object[,]
-                {
-                    { 1, "Gorvagen", "Finspång", "231D", "Gorvagen", "Finspång", "231D", "123abc@gmail.com", "Spurti", "Salimath", "078675432" },
-                    { 2, "Tegelbrukt", "Finspång", "231E", "Gorvagen", "Finspång", "231D", "abc@gmail.com", "Evan", "Andrew", "078675444" }
-                });
-
             migrationBuilder.UpdateData(
                 table: "Movies",
                 keyColumn: "Id",
@@ -96,11 +72,6 @@ namespace TestWebshop.Data.Migrations
                 keyValue: 4,
                 column: "ImageURL",
                 value: "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.imdb.com%2Ftitle%2Ftt0087332%2F&psig=AOvVaw2rGeYGMa_IcNckkUqqUKqN&ust=1701107357993000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCID-0_Cc4oIDFQAAAAAdAAAAABAK");
-
-            migrationBuilder.InsertData(
-                table: "Orders",
-                columns: new[] { "Id", "CustomerId", "OrderDate", "OrderPrice" },
-                values: new object[] { 1, 1, new DateTime(2023, 11, 29, 16, 10, 2, 854, DateTimeKind.Local).AddTicks(8124), 129m });
         }
     }
 }
