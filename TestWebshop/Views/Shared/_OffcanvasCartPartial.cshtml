@@ -1,0 +1,43 @@
+﻿<!-- Your existing Index view code here -->
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        // Function to fetch and update cart content
+        function updateCartContent() {
+            $.ajax({
+                url: '/Cart/GetCartContent', // Replace ControllerName with the actual name of your controller
+                type: 'GET',
+                success: function (data) {
+                    if (Array.isArray(data)) {
+                        $('#cartContent').html('<p>Cart Content:</p>');
+
+                        $.each(data, function (index, item) {
+                            $('#cartContent').append('<p>' + item.Title + ' - Quantity: ' + item.Quantity + '</p>');
+                        });
+                    } else {
+                        console.error('Invalid data received from the server:', data);
+                    }
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    console.error('Error fetching cart content:', textStatus, errorThrown);
+                }
+            });
+        }
+
+        // Call the function on page load
+        updateCartContent();
+    });
+</script>
+
+<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+    <div class="offcanvas-header">
+        <h5 id="offcanvasRightLabel">Cart summary</h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <!-- Placeholder for displaying cart content -->
+        <div id="cartContent"></div>
+    </div>
+</div>
