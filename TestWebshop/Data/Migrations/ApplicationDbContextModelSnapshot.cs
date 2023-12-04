@@ -285,6 +285,36 @@ namespace TestWebshop.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Customers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            BillingAddress = "Gorvagen",
+                            BillingCity = "Finspång",
+                            BillingZip = "231D",
+                            DeliveryAddress = "Gorvagen",
+                            DeliveryCity = "Finspång",
+                            DeliveryZip = "231D",
+                            EmailAddress = "123abc@gmail.com",
+                            FirstName = "Spurti",
+                            LastName = "Salimath",
+                            Phone = "078675432"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            BillingAddress = "Tegelbrukt",
+                            BillingCity = "Finspång",
+                            BillingZip = "231E",
+                            DeliveryAddress = "Gorvagen",
+                            DeliveryCity = "Finspång",
+                            DeliveryZip = "231D",
+                            EmailAddress = "abc@gmail.com",
+                            FirstName = "Evan",
+                            LastName = "Andrew",
+                            Phone = "078675444"
+                        });
                 });
 
             modelBuilder.Entity("TestWebshop.Models.Database.Movie", b =>
@@ -389,6 +419,15 @@ namespace TestWebshop.Data.Migrations
                     b.HasIndex("CustomerId");
 
                     b.ToTable("Orders");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CustomerId = 1,
+                            OrderDate = new DateTime(2023, 11, 29, 16, 10, 2, 854, DateTimeKind.Local).AddTicks(8124),
+                            OrderPrice = 129m
+                        });
                 });
 
             modelBuilder.Entity("TestWebshop.Models.Database.OrderRow", b =>

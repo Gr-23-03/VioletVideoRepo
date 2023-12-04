@@ -203,6 +203,60 @@ namespace TestWebshop.Controllers
 
 
 
+        //popular
+
+        public ActionResult PopularMovies()
+        {
+            var populars = from OrderRow in _db.OrderRows
+                           group OrderRow by OrderRow.MovieId into action
+                           select new { count = action.Count(), key = action.Key };
+            IDictionary<int, int> Movie = new Dictionary<int, int>();
+            List<Movie> PopularMovies = new List<Movie>();
+            foreach (var movie in populars)
+            {
+                Movie.Add(movie.key, movie.count);
+            }
+
+            var sorted = from sortedMovies in Movie
+                         orderby sortedMovies.Value descending
+                         select sortedMovies;
+
+
+            foreach (var item in sorted)
+            {
+                var it = _db.Movies.Find(item.Key);
+                PopularMovies.Add(it);
+            }
+
+            return View(PopularMovies.ToList());
+        }
+
+
+
+
+
+
+
+
+
+        //Oldest
+
+        public ActionResult OldestMovies()
+        {
+            
+
+            return View(_db.Movies.ToList());
+        }
+
+        public ActionResult LatestMovies()
+        {
+
+            var latest = _db.Movies.OrderByDescending(obj => obj.ReleaseYear).ToList();
+            return View(latest);
+            
+        }
+
+
 
 
 

@@ -9,7 +9,7 @@ namespace TestWebshop.Models
     {
         public static void Seed(this ModelBuilder modelBuilder)
         {
-            
+           
 
             modelBuilder.Entity<Movie>().HasData(
                
@@ -63,6 +63,19 @@ namespace TestWebshop.Models
                     });
 
 
+
+            modelBuilder.Entity<OrderRow>().HasData(
+
+                new OrderRow()
+                {
+                   Id=1,
+                   OrderId=1,
+                   MovieId=1,
+                   Price=129,
+
+                 });
+
+
         }
 
 }
@@ -71,7 +84,6 @@ namespace TestWebshop.Models
 
 
 }
-
 
 
 
