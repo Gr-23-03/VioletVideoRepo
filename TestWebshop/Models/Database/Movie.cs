@@ -16,7 +16,7 @@ namespace TestWebshop.Models.Database
         [Required]
         [StringLength(100)]
         public string? Director { get; set; }
-        
+
         [Required]
         public int? ReleaseYear { get; set; }
 
@@ -27,7 +27,7 @@ namespace TestWebshop.Models.Database
         public string Genre { get; set; }
 
         public string ImageURL { get; set; }
-        
+
         public ICollection<OrderRow> OrderRows { get; set; }
 
     }

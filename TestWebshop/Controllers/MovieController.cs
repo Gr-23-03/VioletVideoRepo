@@ -1,7 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System.Net;
+using System.Drawing.Printing;
 using TestWebshop.Data;
 using TestWebshop.Models;
 using TestWebshop.Models.Database;
@@ -53,13 +54,12 @@ namespace TestWebshop.Controllers
             return RedirectToAction("Index");
         }
 
-
         // GET: Movies
 
         public async Task<IActionResult> Index(string movieGenre, string searchString)
         {
             //  LINQ to get list of genres.
-            IQueryable<string> genreQuery = from m in _db.Movies       
+            IQueryable<string> genreQuery = from m in _db.Movies
                                             orderby m.Genre
                                             select m.Genre;
 
@@ -82,7 +82,6 @@ namespace TestWebshop.Controllers
 
             return View(movieGenreVM);
         }
-
 
 
         // GET: Movies/Details
@@ -270,7 +269,7 @@ namespace TestWebshop.Controllers
 
 
 
-       
+
         [HttpPost]
         public async Task<IActionResult> Import(string query)
         {
@@ -285,5 +284,21 @@ namespace TestWebshop.Controllers
         }
 
 
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
     }
+
+
 }

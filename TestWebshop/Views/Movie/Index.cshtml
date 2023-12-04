@@ -1,4 +1,4 @@
-﻿@* @model IEnumerable<TestWebshop.Models.Database.Movie> *@
+﻿ @* @model IEnumerable<TestWebshop.Models.Database.Movie> *@
 
     @model TestWebshop.Models.MovieGenreViewModel
 
@@ -29,6 +29,13 @@
     <thead>
         <tr>
             <th>
+
+@*                 @Html.DisplayNameFor(model => model.movies[0].ImageURL)
+ *@
+
+            </th>
+
+            <th>
                 @Html.DisplayNameFor(model => model.movies[0].Title)
             </th>
             <th>
@@ -41,11 +48,7 @@
                 @Html.DisplayNameFor(model => model.movies[0].Price)
             </th>
             <th>
-
                 @Html.DisplayNameFor(model => model.movies[0].ImageURL)
-
-             
-
             </th>
         </tr>
     </thead>
@@ -54,6 +57,10 @@
     <tbody>
 @foreach (var item in Model.movies) {
         <tr>
+                <td>
+                    <img src="@Html.DisplayFor(modelItem => item.ImageURL)" style="width: 50px">
+                </td>
+
             <td>
                 @Html.DisplayFor(modelItem => item.Title)
             </td>
@@ -69,7 +76,6 @@
                 <td>
                     <img src="@Html.DisplayFor(modelItem => item.ImageURL)" style="width: 50px">
                 </td>
-
                 @{
                     var imageLink = item.ImageURL;
                 }

@@ -6,13 +6,13 @@ using Microsoft.AspNetCore.Builder;
 namespace TestWebshop.Models
 {
     public static class SeedData
-    {
+    { 
+        
         public static void Seed(this ModelBuilder modelBuilder)
         {
            
 
             modelBuilder.Entity<Movie>().HasData(
-               
                  new Movie()
                  {
                      Id = 1,
@@ -62,16 +62,9 @@ namespace TestWebshop.Models
 
                     });
 
-
-
-         
-
-
         }
 
-}
-
-    
+    }
 
 
 }
