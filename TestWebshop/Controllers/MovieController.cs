@@ -242,9 +242,10 @@ namespace TestWebshop.Controllers
 
         public ActionResult OldestMovies()
         {
-            
 
-            return View(_db.Movies.ToList());
+            var oldest = _db.Movies.OrderBy(obj => obj.ReleaseYear).ToList();
+            //return View(_db.Movies.ToList());
+            return View(oldest);
         }
 
 

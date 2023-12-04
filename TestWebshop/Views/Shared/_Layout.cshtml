@@ -49,11 +49,17 @@
                             <a class="nav-link text-dark" asp-controller="Movie" asp-action="Index">Movies</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Home" asp-action="MoviesListOrdered" asp-route-orderBy="newest">New</a>
+                            <a class="nav-link text-dark" asp-controller="Movie" asp-action="LatestMovies" asp-route-orderBy="newest">NewMovies</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Home" asp-action="MoviesListOrdered" asp-route-orderBy="oldest">Old</a>
+                            <a class="nav-link text-dark" asp-controller="Movie" asp-action="OldestMovies" asp-route-orderBy="oldest">OldestMovies</a>
                         </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-controller="Movie" asp-action="PopularMovies" asp-route-orderBy="PopularMovies">PopularMovies</a>
+                        </li>
+
+
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-controller="Home" asp-action="Contact">Contact</a>
                         </li>
