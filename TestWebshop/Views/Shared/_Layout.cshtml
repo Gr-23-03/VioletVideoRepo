@@ -7,6 +7,29 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/TestWebshop.styles.css" asp-append-version="true" />
+    
+    @* <style>
+        /* Optional: Add some basic styling for better appearance of search bar */
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            width: 200px;
+        }
+
+        input[type="submit"] {
+            padding: 10px 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style> *@
+
 </head>
 <body>
     <header>
@@ -34,14 +57,30 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-controller="Home" asp-action="Contact">Contact</a>
                         </li>
-
                         @* <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li> *@
                     </ul>
 
-@*                     <partial name="_LoginPartial" />
- *@
+                        @* <partial name="_LoginPartial" /> *@
+
+
+                    @*  @using (Html.BeginForm("Index", "Movie", FormMethod.Get, new { @class = "form-inline my-2 my-lg-0" }))
+                      {
+                         <input class="form-control mr-sm-2" type="search" placeholder="Search Movies" name="searchString" aria-label="Search">
+                         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                      } *@
+
+                    @using (Html.BeginForm("Index", "Movie", FormMethod.Get, new { @class = "form-inline my-2 my-lg-0" }))
+                    {
+                        <div class="input-group">
+                            <input class="form-control" type="search" placeholder="Search Movies" name="searchString" aria-label="Search">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-success" type="submit">Search</button>
+                            </div>
+                        </div>
+                    }
+
                 </div>
             </div>
         </nav>
@@ -52,6 +91,10 @@
         </main>
     </div>
 
+    <div id="content">
+        @RenderBody()
+    </div>
+   
     <footer class="border-top footer text-muted">
         <div class="container">
             &copy; 2023 - TestWebshop - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
