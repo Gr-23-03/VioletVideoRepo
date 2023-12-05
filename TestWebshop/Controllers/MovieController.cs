@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using System.Net;
+using System.Drawing.Printing;
 using TestWebshop.Data;
 using TestWebshop.Models;
 using TestWebshop.Models.Database;
@@ -13,20 +15,25 @@ namespace TestWebshop.Controllers
     {
         private readonly IMovieService _movieService;
         public ApplicationDbContext _db;
-
-
         public MovieController(IMovieService MovieService, ApplicationDbContext db)
         {
             _movieService = MovieService;
             _db = db;
         }
-        //public IActionResult Index()
-        //{
-        //    //List<Movie> objList = new List<Movie>();
-        //    var objList = _db.Movies.ToList();
 
-        //    return View(objList);
-        //}
+
+
+        ////public IActionResult Index()
+        ////{
+        ////    //List<Movie> objList = new List<Movie>();
+        ////    var objList = _db.Movies.ToList();
+
+        ////    return View(objList);
+        ////}
+
+
+
+        
 
         // GET: Movies/Create
         public IActionResult Create()
@@ -37,19 +44,15 @@ namespace TestWebshop.Controllers
 
 
         // POST: Movies/Create
-        [HttpPost]
-        public IActionResult Create(Movie obj)
+
+       [HttpPost]
+         public IActionResult Create(Movie obj)
         {
             _db.Movies.Add(obj);
             _db.SaveChanges();
 
             return RedirectToAction("Index");
         }
-
-
-
-
-
 
         // GET: Movies
 
@@ -80,15 +83,18 @@ namespace TestWebshop.Controllers
             return View(movieGenreVM);
         }
 
+
+        // GET: Movies/Details
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _db.Movies == null)
+            if (id == null)
             {
                 return NotFound();
             }
 
             var movie = await _db.Movies
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .SingleOrDefaultAsync(m => m.Id == id);
+
             if (movie == null)
             {
                 return NotFound();
@@ -97,31 +103,37 @@ namespace TestWebshop.Controllers
             return View(movie);
         }
 
+
+
+        //Edit
+        //GET
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _db.Movies == null)
+            if (id == null)
             {
                 return NotFound();
             }
 
-            var movie = await _db.Movies.FindAsync(id);
+            var movie = await _db.Movies.SingleOrDefaultAsync(m => m.Id == id);
             if (movie == null)
             {
                 return NotFound();
             }
             return View(movie);
         }
+
+        // POST: Movies/Edit/
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Description,Director,ReleaseYear,Price")] Movie movie)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Director,ReleaseYear,Price,Genre,ImageURL")] Movie movie)
         {
             if (id != movie.Id)
             {
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 try
                 {
@@ -139,25 +151,27 @@ namespace TestWebshop.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index");
             }
             return View(movie);
         }
 
-        private bool MovieExists(int id)
-        {
-            throw new NotImplementedException();
-        }
+
+    
+
+
+        // Delete
 
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _db.Movies == null)
+            if (id == null)
             {
                 return NotFound();
             }
 
             var movie = await _db.Movies
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .SingleOrDefaultAsync(m => m.Id == id);
+
             if (movie == null)
             {
                 return NotFound();
@@ -166,53 +180,114 @@ namespace TestWebshop.Controllers
             return View(movie);
         }
 
-        // POST: Movies/Delete/5
+
+        // POST: Movies/Delete
+
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_db.Movies == null)
-            {
-                return Problem("Entity set 'ApplicationDbContext.Movies'  is null.");
-            }
-            var movie = await _db.Movies.FindAsync(id);
-            if (movie != null)
-            {
-                _db.Movies.Remove(movie);
-            }
-
+            var movie = await _db.Movies.SingleOrDefaultAsync(m => m.Id == id);
+            _db.Movies.Remove(movie);
             await _db.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index");
         }
 
-        //private bool MovieExists(int id)
-        //{
-        //    return _db.Movies.Any(e => e.Id == id);
-        //}
+        private bool MovieExists(int id)
+        {
+            return _db.Movies.Any(e => e.Id == id);
+        }
+
+
+
+
+
+        //popular
+
+        public ActionResult PopularMovies()
+        {
+            var populars = from OrderRow in _db.OrderRows
+                           group OrderRow by OrderRow.MovieId into action
+                           select new { count = action.Count(), key = action.Key };
+            IDictionary<int, int> Movie = new Dictionary<int, int>();
+            List<Movie> PopularMovies = new List<Movie>();
+            foreach (var movie in populars)
+            {
+                Movie.Add(movie.key, movie.count);
+            }
+
+            var sorted = from sortedMovies in Movie
+                         orderby sortedMovies.Value descending
+                         select sortedMovies;
+
+
+            foreach (var item in sorted)
+            {
+                var it = _db.Movies.Find(item.Key);
+                PopularMovies.Add(it);
+            }
+
+            return View(PopularMovies.ToList());
+        }
+
+
+
+
+
+
+
+
+
+        //Oldest
+
+        public ActionResult OldestMovies()
+        {
+            
+
+            return View(_db.Movies.ToList());
+        }
+
+
+
+        public ActionResult LatestMovies()
+        {
+
+            var latest = _db.Movies.OrderByDescending(obj => obj.ReleaseYear).ToList();
+            return View(latest);
+            
+        }
+
+
+
+
+
+
+        public IActionResult Import()
+        {
+            return View();
+        }
+
+
+
+
+        [HttpPost]
+        public async Task<IActionResult> Import(string query)
+        {
+            var movies = await _movieService.SearchOmdb(query);
+            return View(movies);
+        }
+
+        public async Task<IActionResult> ImportImdb(string imdb)
+        {
+            var movies = await _movieService.OmdbSearch(imdb);
+            return View(movies);
+        }
+
+
+
+
+
     }
+
+
 }
-
-
-////public IActionResult Import()
-////        {
-////            return View();
-////        }
-
-
-
-
-////        [HttpPost]
-////        public async Task<IActionResult> Import(string query)
-////        {
-////            var movies = await _movieService.SearchOmdb(query);
-////            return View(movies);
-////        }
-
-////        public async Task<IActionResult> ImportImdb(string imdb)
-////        {
-////            var movies = await _movieService.OmdbSearch(imdb);
-////            return View(movies);
-////        }
-
-
-    

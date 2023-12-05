@@ -1,8 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 using TestWebshop.Data;
 using TestWebshop.Models;
 using TestWebshop.Models.Database;
+using TestWebshop.Models.ViewModels;
 
 namespace TestWebshop.Controllers
 {
@@ -18,7 +21,18 @@ namespace TestWebshop.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            // var mostPopular = _context.OrderRow.............
+
+            var vm = new HomeIndexVM()
+            {
+                NewestMovies = _context.Movies.OrderByDescending(m => m.ReleaseYear).ThenBy(m => m.Title).ToList(),
+                CheapestMovies = _context.Movies.OrderBy(m => m.Price).ThenBy(m => m.Title).ToList(),
+                OldestMovies = _context.Movies.OrderBy(m => m.ReleaseYear).ThenBy(m => m.Title).ToList(),
+                //MostPopularMovies = mostPopular.ToList()
+            };
+
+
+            return View(vm);
         }
 
         public IActionResult Privacy()
@@ -52,6 +66,14 @@ namespace TestWebshop.Controllers
             return View(mList);
         }
 
+        public IActionResult Contact()
+        {
+            return View();
+        }
+
+
 
     }
+
+
 }
