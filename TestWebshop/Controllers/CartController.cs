@@ -106,14 +106,14 @@ namespace TestWebshop.Controllers
 
 
 
-        public IActionResult RemoveFromCart(int movieId)
+        public IActionResult RemoveFromCart(int Id)
         {
             {
                 var cartList = HttpContext.Session.Get<List<int>>("ShoppingCart") ?? new List<int>();
 
-                if (cartList.Contains(movieId))
+                if (cartList.Contains(Id))
                 {
-                    cartList.Remove(movieId);
+                    cartList.Remove(Id);
                     HttpContext.Session.Set<List<int>>("ShoppingCart", cartList);
 
                     // Optionally, you can perform additional logic here, such as updating totals.
@@ -128,9 +128,45 @@ namespace TestWebshop.Controllers
                 }
             }
 
-            return (View());
 
         }
+
+        public IActionResult UpdateCart(int movieId, int quantityDelta)
+        {
+            var cartList = HttpContext.Session.Get<List<int>>("ShoppingCart") ?? new List<int>();
+
+            // Check if the movieId is in the cart
+            if (cartList.Contains(movieId))
+            {
+                // Update the quantity based on quantityDelta
+                int index = cartList.IndexOf(movieId);
+
+                if (quantityDelta > 0)
+                {
+                    // Increment the quantity (add copies)
+                    for (int i = 0; i < quantityDelta; i++)
+                    {
+                        cartList.Add(movieId);
+                    }
+                }
+                else if (quantityDelta < 0)
+                {
+                    // Decrement the quantity (remove copies)
+                    for (int i = 0; i < -quantityDelta; i++)
+                    {
+                        cartList.Remove(movieId);
+                    }
+                }
+
+                HttpContext.Session.Set<List<int>>("ShoppingCart", cartList);
+            }
+
+            return RedirectToAction("GetCartContent");
+        }
+
+        
+
+        
 
     }
 }

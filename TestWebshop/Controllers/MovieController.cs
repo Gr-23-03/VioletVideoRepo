@@ -13,6 +13,8 @@ namespace TestWebshop.Controllers
     {
         private readonly IMovieService _movieService;
         public ApplicationDbContext _db;
+
+
         public MovieController(IMovieService MovieService, ApplicationDbContext db)
         {
             _movieService = MovieService;
@@ -78,44 +80,140 @@ namespace TestWebshop.Controllers
             return View(movieGenreVM);
         }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        public IActionResult Import()
+        public async Task<IActionResult> Details(int? id)
         {
-            return View();
+            if (id == null || _db.Movies == null)
+            {
+                return NotFound();
+            }
+
+            var movie = await _db.Movies
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (movie == null)
+            {
+                return NotFound();
+            }
+
+            return View(movie);
         }
 
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null || _db.Movies == null)
+            {
+                return NotFound();
+            }
 
-
+            var movie = await _db.Movies.FindAsync(id);
+            if (movie == null)
+            {
+                return NotFound();
+            }
+            return View(movie);
+        }
 
         [HttpPost]
-        public async Task<IActionResult> Import(string query)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Description,Director,ReleaseYear,Price")] Movie movie)
         {
-            var movies = await _movieService.SearchOmdb(query);
-            return View(movies);
+            if (id != movie.Id)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _db.Update(movie);
+                    await _db.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!MovieExists(movie.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            return View(movie);
         }
 
-        public async Task<IActionResult> ImportImdb(string imdb)
+        private bool MovieExists(int id)
         {
-            var movies = await _movieService.OmdbSearch(imdb);
-            return View(movies);
+            throw new NotImplementedException();
         }
 
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null || _db.Movies == null)
+            {
+                return NotFound();
+            }
 
+            var movie = await _db.Movies
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (movie == null)
+            {
+                return NotFound();
+            }
+
+            return View(movie);
+        }
+
+        // POST: Movies/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            if (_db.Movies == null)
+            {
+                return Problem("Entity set 'ApplicationDbContext.Movies'  is null.");
+            }
+            var movie = await _db.Movies.FindAsync(id);
+            if (movie != null)
+            {
+                _db.Movies.Remove(movie);
+            }
+
+            await _db.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+
+        //private bool MovieExists(int id)
+        //{
+        //    return _db.Movies.Any(e => e.Id == id);
+        //}
     }
 }
+
+
+//public IActionResult Import()
+//        {
+//            return View();
+//        }
+
+
+
+
+//        [HttpPost]
+//        public async Task<IActionResult> Import(string query)
+//        {
+//            var movies = await _movieService.SearchOmdb(query);
+//            return View(movies);
+//        }
+
+//        public async Task<IActionResult> ImportImdb(string imdb)
+//        {
+//            var movies = await _movieService.OmdbSearch(imdb);
+//            return View(movies);
+//        }
+
+
+//    }
+//}

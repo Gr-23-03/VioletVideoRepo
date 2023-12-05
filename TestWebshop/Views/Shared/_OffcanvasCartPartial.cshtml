@@ -11,10 +11,11 @@
                 type: 'GET',
                 success: function (data) {
                     if (Array.isArray(data)) {
-                        $('#cartContent').html('<p>Cart Content:</p>');
+                        $('#cartContent').html('<p></p>');
 
                         $.each(data, function (index, item) {
-                            $('#cartContent').append('<p>' + item.Title + ' - Quantity: ' + item.Quantity + '</p>');
+                            $('#cartContent').append('<img width="66px" src="' + item.pictureUrl + '">')
+                            $('#cartContent').append('<p>' + item.title + ' - Quantity: ' + item.quantity + '</p>');
                         });
                     } else {
                         console.error('Invalid data received from the server:', data);
@@ -40,4 +41,7 @@
         <!-- Placeholder for displaying cart content -->
         <div id="cartContent"></div>
     </div>
+</div>
+
+<div>
 </div>
