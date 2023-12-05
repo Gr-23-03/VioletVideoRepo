@@ -21,13 +21,13 @@ namespace TestWebshop.Controllers
         }
 
         // GET: Orders
-        //public async Task<IActionResult> Index()
-        //{
-        //    var applicationDbContext = _context.Orders.Include(o => o.Customer);
-        //    return View(await applicationDbContext.ToListAsync());
-        //}
+        public async Task<IActionResult> Index()
+        {
+            var applicationDbContext = _context.Orders.Include(o => o.Customer);
+            return View(await applicationDbContext.ToListAsync());
+        }
 
-      
+
 
 
 
