@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using TestWebshop.Data;
 using TestWebshop.Models.Database;
 
+
 namespace TestWebshop.Controllers
 {
     public class OrdersController : Controller
@@ -25,6 +26,11 @@ namespace TestWebshop.Controllers
             var applicationDbContext = _context.Orders.Include(o => o.Customer);
             return View(await applicationDbContext.ToListAsync());
         }
+
+
+
+        
+
 
         // GET: Orders/Details/5
         public async Task<IActionResult> Details(int? id)

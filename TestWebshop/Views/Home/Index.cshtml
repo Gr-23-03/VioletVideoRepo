@@ -1,9 +1,12 @@
-﻿@model TestWebshop.Models.ViewModels.HomeIndexVM
+@model TestWebshop.Models.ViewModels.HomeIndexVM
 @{
     ViewData["Title"] = "Home Page";
 
    
 }
+
+
+    <h1 class="display-4">Welcome</h1>
 
 
 
@@ -23,12 +26,14 @@
         <partial name="NewestOldestMoviesPartial" model="@Model.NewestMovies"></partial>   @* Cheapest Movies in table list (8 columns) *@
     </div>
 
+
     <div class="col-sm-6" style="box-shadow: 5px 5px 10px gray; margin: 0px; padding: 25px">
         <h3 style="text-shadow: 5px 5px 10px red">Oldest Movies:</h3>
         <partial name="NewestOldestMoviesPartial" model="@Model.OldestMovies"></partial>   @* Cheapest Movies in table list (8 columns) *@
     </div>
 
-
+   
+   
 
 
 
