@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 using TestWebshop.Data;
 using TestWebshop.Models;
@@ -64,6 +66,14 @@ namespace TestWebshop.Controllers
             return View(mList);
         }
 
+        public IActionResult Contact()
+        {
+            return View();
+        }
+
+
 
     }
+
+
 }

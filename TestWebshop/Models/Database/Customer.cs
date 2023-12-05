@@ -9,19 +9,6 @@ namespace TestWebshop.Models.Database
                 Orders = new List<Order>();
         }
 
-        //[Key]
-        //public int Id { get; set; }
-        //public string? FirstName { get; set; }
-        //public string? LastName { get; set; }
-        //public int? BillingAddress { get; set; }
-        //public decimal BillingZip { get; set; }
-        //public int BillingCity { get; set; }
-        //public int DeliveryAddress { get; set; }
-        //public int DeliveryZip { get; set; }
-        //public int DeliveryCity { get; set; }
-        //public int EmailAddress { get; set; }
-
-        //public int PhoneNo { get; set; }
         [Key]
         public int Id { get; set; }
 
