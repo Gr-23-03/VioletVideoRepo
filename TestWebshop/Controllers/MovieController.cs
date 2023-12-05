@@ -10,7 +10,7 @@ using TestWebshop.Services;
 
 namespace TestWebshop.Controllers
 {
-
+    
     public class MovieController : Controller
     {
         private readonly IMovieService _movieService;
