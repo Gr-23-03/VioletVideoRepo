@@ -130,7 +130,7 @@ namespace TestWebshop.Controllers
 
 
         }
-
+        
         public IActionResult UpdateCart(int movieId, int quantityDelta)
         {
             var cartList = HttpContext.Session.Get<List<int>>("ShoppingCart") ?? new List<int>();

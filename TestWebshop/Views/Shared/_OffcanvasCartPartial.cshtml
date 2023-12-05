@@ -1,21 +1,48 @@
-﻿<!-- Your existing Index view code here -->
-
-<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+﻿<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
 <script>
     $(document).ready(function () {
         // Function to fetch and update cart content
         function updateCartContent() {
             $.ajax({
-                url: '/Cart/GetCartContent', // Replace ControllerName with the actual name of your controller
+                url: '/Cart/GetCartContent',
                 type: 'GET',
                 success: function (data) {
                     if (Array.isArray(data)) {
                         $('#cartContent').html('<p></p>');
 
+                        // Group movies by ID
+                        var cart = [];
                         $.each(data, function (index, item) {
-                            $('#cartContent').append('<img width="66px" src="' + item.pictureUrl + '">')
-                            $('#cartContent').append('<p>' + item.title + ' - Quantity: ' + item.quantity + '</p>');
+                            var existingItem = cart.find(function (cartItem) {
+                                return cartItem.id === item.id;
+                            });
+
+                            if (existingItem) {
+                                existingItem.quantity += 1; // Adjust based on your needs
+                                existingItem.price *= 2;
+                            } else {
+                                cart.push({
+                                    id: item.id,
+                                    title: item.title,
+                                    price: item.price,
+                                    pictureUrl: item.pictureUrl,
+                                    quantity: 1 // Adjust based on your needs
+                                });
+                            }
+                        });
+
+                        // Display the grouped items in the cart
+                        $.each(cart, function (index, item) {
+                            var itemHtml = '<div class="cart-item">';
+                            itemHtml += '<img width="66px" src="' + item.pictureUrl + '">';
+                            itemHtml += '<p>' + item.title + ' - Quantity: <span class="quantity">' + item.quantity + '</span></p>';
+                            itemHtml += '<p>Price; <span class="price">' + item.price + ' kr</span></p>';
+                            itemHtml += '<button class="incrementBtn" data-movieid="' + item.id + '">+</button>';
+                            itemHtml += '<button class="decrementBtn" data-movieid="' + item.id + '">-</button>';
+                            itemHtml += '</div>';
+
+                            $('#cartContent').append(itemHtml);
                         });
                     } else {
                         console.error('Invalid data received from the server:', data);
@@ -29,6 +56,32 @@
 
         // Call the function on page load
         updateCartContent();
+
+        // Attach click event handlers for the buttons
+        $('#cartContent').on('click', '.incrementBtn', function () {
+            var movieId = $(this).data('movieid');
+            updateCart(movieId, 1); // Increment by 1
+        });
+
+        $('#cartContent').on('click', '.decrementBtn', function () {
+            var movieId = $(this).data('movieid');
+            updateCart(movieId, -1); // Decrement by 1
+        });
+
+        // Function to update the quantity of a movie
+        function updateCart(movieId, quantityDelta) {
+            $.ajax({
+                url: '/Cart/UpdateCart?movieId=' + movieId + '&quantityDelta=' + quantityDelta,
+                type: 'GET',
+                success: function () {
+                    // After updating the quantity, refresh the cart content
+                    updateCartContent();
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    console.error('Error updating cart:', textStatus, errorThrown);
+                }
+            });
+        }
     });
 </script>
 
@@ -41,7 +94,4 @@
         <!-- Placeholder for displaying cart content -->
         <div id="cartContent"></div>
     </div>
-</div>
-
-<div>
 </div>

@@ -193,27 +193,26 @@ namespace TestWebshop.Controllers
 }
 
 
-//public IActionResult Import()
-//        {
-//            return View();
-//        }
+////public IActionResult Import()
+////        {
+////            return View();
+////        }
 
 
 
 
-//        [HttpPost]
-//        public async Task<IActionResult> Import(string query)
-//        {
-//            var movies = await _movieService.SearchOmdb(query);
-//            return View(movies);
-//        }
+////        [HttpPost]
+////        public async Task<IActionResult> Import(string query)
+////        {
+////            var movies = await _movieService.SearchOmdb(query);
+////            return View(movies);
+////        }
 
-//        public async Task<IActionResult> ImportImdb(string imdb)
-//        {
-//            var movies = await _movieService.OmdbSearch(imdb);
-//            return View(movies);
-//        }
+////        public async Task<IActionResult> ImportImdb(string imdb)
+////        {
+////            var movies = await _movieService.OmdbSearch(imdb);
+////            return View(movies);
+////        }
 
 
-//    }
-//}
+    
