@@ -1,0 +1,56 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+	int newestCounter = 0;
+
+}
+
+
+
+<!-- Carousel -->
+<div id="demo" class="carousel slide" data-bs-ride="carousel" style="background-color:black">
+
+	<!-- Indicators/dots -->
+	<div class="carousel-indicators">
+		<button type="button" data-bs-target="#demo" data-bs-slide-to="0" class="active"></button>
+		<button type="button" data-bs-target="#demo" data-bs-slide-to="1"></button>
+		<button type="button" data-bs-target="#demo" data-bs-slide-to="2"></button>
+	</div>
+
+	<!-- The slideshow/carousel -->
+	<div class="carousel-inner">
+		<div class="carousel-item active">
+			<img src="https://s3.amazonaws.com/nightjarprod/content/uploads/sites/192/2022/02/16150328/3wkbKeowUp1Zpkw1KkBqMWbt0P9.jpg" style="width: 200px" />
+
+			@*             <img src="@Model.NewestMovies.Where(m => m.Id == newestCounter).FirstOrDefault()" style="width: 200px" />
+			*@
+			@{
+				newestCounter++;
+			}
+		</div>
+		<div class="carousel-inner">
+			<div class="carousel-item">
+				<img src="https://filmparadiset.se/wp-content/grand-media/image/En_kvinnas_hemlighet_DVD_Omslag.jpg" style="width: 200px" />
+
+				@*             <img src="@Model.NewestMovies.Where(m => m.Id == newestCounter).FirstOrDefault()" style="width: 200px" />
+				*@
+				@{
+					newestCounter++;
+				}
+			</div>
+
+
+
+		</div>
+
+		<!-- Left and right controls/icons -->
+		<button class="carousel-control-prev" type="button" data-bs-target="#demo" data-bs-slide="prev">
+			<span class="carousel-control-prev-icon"></span>
+		</button>
+		<button class="carousel-control-next" type="button" data-bs-target="#demo" data-bs-slide="next">
+			<span class="carousel-control-next-icon"></span>
+		</button>
+	</div>
+
+
