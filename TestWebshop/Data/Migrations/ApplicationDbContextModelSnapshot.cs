@@ -284,7 +284,7 @@ namespace TestWebshop.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Customers");
+                    b.ToTable("Customers", (string)null);
                 });
 
             modelBuilder.Entity("TestWebshop.Models.Database.Movie", b =>
@@ -322,7 +322,7 @@ namespace TestWebshop.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Movies");
+                    b.ToTable("Movies", (string)null);
 
                     b.HasData(
                         new
@@ -388,7 +388,7 @@ namespace TestWebshop.Data.Migrations
 
                     b.HasIndex("CustomerId");
 
-                    b.ToTable("Orders");
+                    b.ToTable("Orders", (string)null);
                 });
 
             modelBuilder.Entity("TestWebshop.Models.Database.OrderRow", b =>
@@ -414,7 +414,7 @@ namespace TestWebshop.Data.Migrations
 
                     b.HasIndex("OrderId");
 
-                    b.ToTable("OrderRows");
+                    b.ToTable("OrderRows", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

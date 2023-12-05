@@ -305,17 +305,6 @@ namespace TestWebshop.Controllers
 
 
 
-
-
-
-
-
-        
-
-
-
-
-
     }
 
 
