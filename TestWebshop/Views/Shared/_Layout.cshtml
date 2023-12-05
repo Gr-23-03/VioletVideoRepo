@@ -35,7 +35,7 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">TestWebshop</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">VioletVideo</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -58,7 +58,9 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-controller="Movie" asp-action="PopularMovies" asp-route-orderBy="PopularMovies">PopularMovies</a>
                         </li>
-
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-controller="Movie" asp-action="CheapestMovies" asp-route-orderBy="CheapestMovies">CheapestMovies</a>
+                        </li>
 
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-controller="Home" asp-action="Contact">Contact</a>
@@ -103,8 +105,12 @@
    
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2023 - TestWebshop - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy;VioletVideo -  @DateTime.Now.Year <a asp-area="" asp-controller="Home" asp-action="Content">Content</a>
+            
         </div>
+        
+
+
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

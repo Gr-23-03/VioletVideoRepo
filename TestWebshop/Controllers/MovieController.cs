@@ -202,6 +202,12 @@ namespace TestWebshop.Controllers
 
 
 
+
+
+
+
+
+
         //popular
 
         public ActionResult PopularMovies()
@@ -257,6 +263,17 @@ namespace TestWebshop.Controllers
             return View(latest);
             
         }
+
+
+        public ActionResult CheapestMovies()
+        {
+
+            var cheapest = _db.Movies.OrderBy(obj => obj.Price).ToList();
+            //return View(_db.Movies.ToList());
+            return View(cheapest);
+        }
+
+
 
 
 

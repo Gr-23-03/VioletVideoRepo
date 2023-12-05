@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using TestWebshop.Data;
 using TestWebshop.Models.Database;
 
+
 namespace TestWebshop.Controllers
 {
     public class OrdersController : Controller
@@ -20,11 +21,16 @@ namespace TestWebshop.Controllers
         }
 
         // GET: Orders
-        public async Task<IActionResult> Index()
-        {
-            var applicationDbContext = _context.Orders.Include(o => o.Customer);
-            return View(await applicationDbContext.ToListAsync());
-        }
+        //public async Task<IActionResult> Index()
+        //{
+        //    var applicationDbContext = _context.Orders.Include(o => o.Customer);
+        //    return View(await applicationDbContext.ToListAsync());
+        //}
+
+      
+
+
+
 
         // GET: Orders/Details/5
         public async Task<IActionResult> Details(int? id)
