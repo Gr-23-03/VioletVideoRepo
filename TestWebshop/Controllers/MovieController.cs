@@ -202,6 +202,12 @@ namespace TestWebshop.Controllers
 
 
 
+
+        //shop movies
+
+      
+
+
         //popular
 
         public ActionResult PopularMovies()
@@ -242,9 +248,10 @@ namespace TestWebshop.Controllers
 
         public ActionResult OldestMovies()
         {
-            
 
-            return View(_db.Movies.ToList());
+            var oldest = _db.Movies.OrderBy(obj => obj.ReleaseYear).ToList();
+            //return View(_db.Movies.ToList());
+            return View(oldest);
         }
 
 
@@ -256,6 +263,17 @@ namespace TestWebshop.Controllers
             return View(latest);
             
         }
+
+
+        public ActionResult CheapestMovies()
+        {
+
+            var cheapest = _db.Movies.OrderBy(obj => obj.Price).ToList();
+            //return View(_db.Movies.ToList());
+            return View(cheapest);
+        }
+
+
 
 
 
@@ -282,17 +300,6 @@ namespace TestWebshop.Controllers
             var movies = await _movieService.OmdbSearch(imdb);
             return View(movies);
         }
-
-
-
-
-
-
-
-
-
-
-        
 
 
 
