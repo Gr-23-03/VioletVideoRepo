@@ -29,24 +29,27 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-controller="Movie" asp-action="Index">Movies</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Movie" asp-action="LatestMovies" asp-route-orderBy="newest">NewMovies</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Movie" asp-action="OldestMovies" asp-route-orderBy="oldest">OldestMovies</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Movie" asp-action="PopularMovies" asp-route-orderBy="PopularMovies">PopularMovies</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Movie" asp-action="CheapestMovies" asp-route-orderBy="CheapestMovies">CheapestMovies</a>
-                        </li>
-
+                     
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-controller="Home" asp-action="Contact">Contact</a>
                         </li>
 
+                        <li class="nav-item">
+                        <div class="dropdown">
+                            <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Choose
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" asp-controller ="Movie" asp-action="LatestMovies" asp-route-orderBy="newest">NewMovies</a></li>
+                                <li><a class="dropdown-item" asp-controller="Movie" asp-action="OldestMovies" asp-route-orderBy="oldest">OldestMovies</a></li>
+                                <li><a class="dropdown-item" asp-controller="Movie" asp-action="PopularMovies" asp-route-orderBy="PopularMovies">PopularMovies</a></li>
+                                <li><a class="dropdown-item" asp-controller="Movie" asp-action="CheapestMovies" asp-route-orderBy="CheapestMovies">CheapestMovies</a></li>
+                             
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+             
                         <li class="nav-item">
                             <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
                                 ShoppingCart
@@ -54,30 +57,18 @@
                             </button>
                         </li>
 
-
-                        @* <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li> *@
-                    </ul>
-
-                        @* <partial name="_LoginPartial" /> *@
-
-
-                    @*  @using (Html.BeginForm("Index", "Movie", FormMethod.Get, new { @class = "form-inline my-2 my-lg-0" }))
-                      {
-                         <input class="form-control mr-sm-2" type="search" placeholder="Search Movies" name="searchString" aria-label="Search">
-                         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                      } *@
-
                     @using (Html.BeginForm("Index", "Movie", FormMethod.Get, new { @class = "form-inline my-2 my-lg-0" }))
                     {
+          
                         <div class="input-group">
                             <input class="form-control" type="search" placeholder="Search Movies" name="searchString" aria-label="Search">
                             <div class="input-group-append">
                                 <button class="btn btn-outline-success" type="submit">Search</button>
                             </div>
                         </div>
+                   
                     }
+               
 
                 </div>
             </div>
