@@ -10,6 +10,10 @@
         <a asp-action="Details" asp-route-id="@Model[0].Id">
         <img src="@Model[0].ImageURL" class="d-block w-100" />
         </a>
+        <div class="carousel-caption">
+            @(1)
+            @Model[0].Title | @Model[0].Price kronor
+        </div>
         </div>
     @for (int i = 1; i <= Model.Count - 1; i++)
     {
@@ -17,6 +21,10 @@
             <a asp-action="Details" asp-route-id="@Model[i].Id">
             <img src="@Model[i].ImageURL" class="d-block w-100" />
             </a>
+                <div class="carousel-caption">
+                    @(i + 1)
+                    @Model[i].Title | @Model[i].Price kronor
+                 </div>
         </div>
         }
     </div>
