@@ -7,12 +7,16 @@
     <!-- The slideshow/carousel -->
     <div class="carousel-inner">
         <div class="carousel-item active">
+        <a asp-action="Details" asp-route-id="@Model[0].Id">
         <img src="@Model[0].ImageURL" class="d-block w-100" />
+        </a>
         </div>
     @for (int i = 1; i <= Model.Count - 1; i++)
     {
         <div class="carousel-item">
+            <a asp-action="Details" asp-route-id="@Model[i].Id">
             <img src="@Model[i].ImageURL" class="d-block w-100" />
+            </a>
         </div>
         }
     </div>
