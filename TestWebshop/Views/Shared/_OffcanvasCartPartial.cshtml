@@ -35,15 +35,22 @@
                         // Display the grouped items in the cart
                         $.each(cart, function (index, item) {
                             var itemHtml = '<div class="cart-item">';
-                            itemHtml += '<img width="66px" src="' + item.pictureUrl + '">';
                             itemHtml += '<p>' + item.title + ' - Quantity: <span class="quantity">' + item.quantity + '</span></p>';
-                            itemHtml += '<p>Price; <span class="price">' + item.price + ' kr</span></p>';
+                            itemHtml += '<img width="66px" src="' + item.pictureUrl + '">';
                             itemHtml += '<button class="incrementBtn" data-movieid="' + item.id + '">+</button>';
                             itemHtml += '<button class="decrementBtn" data-movieid="' + item.id + '">-</button>';
+                            itemHtml += '<p>Price; <span class="price">' + item.price + ' kr</span></p>';
+
+
+
+
                             itemHtml += '</div>';
 
                             $('#cartContent').append(itemHtml);
                         });
+
+                        $('#cartContent').append('<a href="/Cart/Checkout" class="btn btn-primary">Checkout</a>');
+
                     } else {
                         console.error('Invalid data received from the server:', data);
                     }
@@ -83,6 +90,7 @@
             });
         }
     });
+
 </script>
 
 <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using TestWebshop.Data;
 using TestWebshop.Extensions;
 using TestWebshop.Models;
@@ -22,27 +23,7 @@ namespace TestWebshop.Controllers
 
         public IActionResult Index()
         {
-            var cartItemIds = HttpContext.Session.Get<List<int>>("ShoppingCart") ?? new List<int>();
-
-            List<DisplayCartVM> cartMovieDistinctList = new List<DisplayCartVM>();
-
-            foreach (var item in cartItemIds)
-            {
-                int counter = _context.Movies.Count(m => m.Id == item);
-
-                Movie? mObj = _context.Movies.Find(item);
-
-                DisplayCartVM obj = new DisplayCartVM
-                {
-                    Id = mObj.Id,
-                    PictureUrl = mObj.ImageURL,
-                    Price = mObj.Price,
-                    Title = mObj.Title,
-                    Quantity = counter
-                };
-
-                cartMovieDistinctList.Add(obj);
-            }
+            var cartMovieDistinctList = GetCartItems();
 
             // Populate MovieGenreViewModel
             var movieGenreViewModel = new MovieGenreViewModel
@@ -61,46 +42,13 @@ namespace TestWebshop.Controllers
             cartList.Add(id);
             HttpContext.Session.Set<List<int>>("ShoppingCart", cartList);
 
-
             return RedirectToAction("Index", "Movie");
         }
 
 
         public IActionResult GetCartContent()
         {
-            var cartItemIds = HttpContext.Session.Get<List<int>>("ShoppingCart") ?? new List<int>();
-
-            List<DisplayCartVM> cartMovieDistinctList = new List<DisplayCartVM>();
-
-            foreach (var item in cartItemIds)
-            {
-                int counter = _context.Movies.Count(m => m.Id == item);
-
-                // Use the Find method to get the movie object
-                Movie? mObj = _context.Movies.Find(item);
-
-                // Check if mObj is not null before accessing its properties
-                if (mObj != null)
-                {
-                    DisplayCartVM obj = new DisplayCartVM
-                    {
-                        Id = mObj.Id,
-                        PictureUrl = mObj.ImageURL,
-                        Price = mObj.Price,
-                        Title = mObj.Title,
-                        Quantity = counter
-                    };
-
-                    cartMovieDistinctList.Add(obj);
-                }
-                else
-                {
-                    // Handle the case where the movie with the specified Id is not found
-                    // You might want to log a message, skip the item, or handle it in another way
-                    // For now, let's just log a message
-                }
-            }
-
+            var cartMovieDistinctList = GetCartItems();
             return Json(cartMovieDistinctList);
         }
 
@@ -130,7 +78,7 @@ namespace TestWebshop.Controllers
 
 
         }
-        
+
         public IActionResult UpdateCart(int movieId, int quantityDelta)
         {
             var cartList = HttpContext.Session.Get<List<int>>("ShoppingCart") ?? new List<int>();
@@ -164,9 +112,74 @@ namespace TestWebshop.Controllers
             return RedirectToAction("GetCartContent");
         }
 
-        
+        public IActionResult Checkout()
+        {
+            var cartItems = GetCartItems();
+            return View(cartItems);
+        }
 
-        
+        [HttpPost]
+        public IActionResult Checkout(string email)
+        {
+            // check if a customer with given email exists...
 
+            // if it exist, get cart items and create an order and then redirect to order complete view
+
+            // otherwise redirect to create customer view
+
+            return RedirectToAction("Checkout");
+        }
+
+        private List<DisplayCartVM> GetCartItems()
+        {
+            var cartItemIds = HttpContext.Session.Get<List<int>>("ShoppingCart") ?? new List<int>();
+
+            var cartItems = new List<DisplayCartVM>();
+
+            foreach (var group in cartItemIds.GroupBy(x => x))
+            {
+                // Use the Find method to get the movie object
+                var mObj = _context.Movies.Find(group.Key);
+
+                // Check if mObj is not null before accessing its properties
+                if (mObj != null)
+                {
+                    var obj = new DisplayCartVM
+                    {
+                        Id = mObj.Id,
+                        PictureUrl = mObj.ImageURL,
+                        Price = mObj.Price,
+                        Title = mObj.Title,
+                        Quantity = group.Count()
+                    };
+
+                    cartItems.Add(obj);
+                }
+            }
+
+            return cartItems;
+        }
+
+        //// Create an order
+        //var order = CreateOrder(userId);
+
+        //// Create order rows for each item in the shopping cart
+        //foreach (var movieId in HttpContext.Session.Get<List<int>>("ShoppingCart") ?? new List<int>())
+        //{
+        //    CreateOrderRow(order.Id, movieId);
+        //}
+
+        //// Clear the shopping cart
+        //HttpContext.Session.Remove("ShoppingCart");
+
+        //// Redirect to the confirmation page or wherever you want to go after checkout
+        //return RedirectToAction("CheckoutConfirmation");
     }
+
+
 }
+
+
+
+
+

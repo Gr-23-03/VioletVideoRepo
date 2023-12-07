@@ -1,0 +1,32 @@
+﻿@model IEnumerable<TestWebshop.Models.ViewModels.DisplayCartVM>
+
+
+@{
+    ViewData["Title"] = "Checkout";
+}
+
+<h1>Checkout</h1>
+
+
+
+
+@if (Model != null && Model.Any())
+{
+    foreach (var item in Model)
+    {
+        <div class="cart-item">
+            <p>@item.Title - Quantity: <span class="quantity">@item.Quantity</span></p>
+            <img width="66" src="@item.PictureUrl">
+            <p>Price: <span class="price">@item.Price kr</span></p>
+            <p>Total: @item.TotalPrice</p>
+        </div>
+    }
+}
+
+@* <p>Thank you for shopping with us! Your order has been successfully placed.</p>
+<p>Order details:</p>
+
+<!-- Add any additional content or order details here -->
+
+<p><a asp-action="Index" asp-controller="Home">Continue Shopping</a></p> *@
+

@@ -21,3 +21,35 @@ body {
   margin-bottom: 60px;
   background-color:aliceblue;
 }
+/* Increment Button Style */
+.incrementBtn,
+.decrementBtn {
+    background-color: #000;
+    color: #fff;
+    padding: 7px 7px;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    margin-right: 5px;
+    margin-left: 10px;
+    transition: background-color 0.3s;
+}
+#cartContent {
+    border: 5px outset #000;
+    border-radius: 15px;
+    border-bottom-left-radius: 15px;
+    border-width: 10px;
+    padding-left: 10px;
+}
+#offcanvasRightLabel
+{
+    padding: 5px;
+   
+    
+}
+/* Hover Effect */
+.incrementBtn:hover,
+.decrementBtn:hover {
+    opacity: 0.66;
+}
+

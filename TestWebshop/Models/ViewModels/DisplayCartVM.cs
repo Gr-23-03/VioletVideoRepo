@@ -12,13 +12,14 @@
 
         public int Quantity { get; set; }
 
-        private decimal TotalPrice { get; set; }
+        // computed property -> always calculated when accessing.
+        public decimal TotalPrice => Price * Quantity;
 
 
-        public DisplayCartVM()
-        {
-            TotalPrice = Price * Quantity;
-        }
+        //public DisplayCartVM()
+        //{
+        //    TotalPrice = Price * Quantity;
+        //}
 
     }
 }
