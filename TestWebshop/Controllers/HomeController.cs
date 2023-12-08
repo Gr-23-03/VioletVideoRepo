@@ -25,9 +25,9 @@ namespace TestWebshop.Controllers
 
             var vm = new HomeIndexVM()
             {
-                NewestMovies = _context.Movies.OrderByDescending(m => m.ReleaseYear).ThenBy(m => m.Title).ToList(),
-                CheapestMovies = _context.Movies.OrderBy(m => m.Price).ThenBy(m => m.Title).ToList(),
-                OldestMovies = _context.Movies.OrderBy(m => m.ReleaseYear).ThenBy(m => m.Title).ToList(),
+                NewestMovies = _context.Movies.OrderByDescending(m => m.ReleaseYear).ThenBy(m => m.Title).Take(5).ToList(),
+                CheapestMovies = _context.Movies.OrderBy(m => m.Price).ThenBy(m => m.Title).Take(5).ToList(),
+                OldestMovies = _context.Movies.OrderBy(m => m.ReleaseYear).ThenBy(m => m.Title).Take(5).ToList(),
                 //MostPopularMovies = mostPopular.ToList()
             };
 
