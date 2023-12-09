@@ -7,6 +7,8 @@ using TestWebshop.Data;
 using TestWebshop.Models;
 using TestWebshop.Models.Database;
 using TestWebshop.Services;
+using System.Security.Policy;
+
 
 namespace TestWebshop.Controllers
 {
@@ -22,18 +24,15 @@ namespace TestWebshop.Controllers
         }
 
 
+        //public IActionResult Index()
+        //{
+        //    //List<Movie> objList = new List<Movie>();
+        //    var objList = _db.Movies.ToList();
 
-        ////public IActionResult Index()
-        ////{
-        ////    //List<Movie> objList = new List<Movie>();
-        ////    var objList = _db.Movies.ToList();
-
-        ////    return View(objList);
-        ////}
-
+        //    return View(objList);
+        //}
 
 
-        
 
         // GET: Movies/Create
         public IActionResult Create()
@@ -47,18 +46,18 @@ namespace TestWebshop.Controllers
 
        [HttpPost]
          public IActionResult Create(Movie obj)
-        {
+         {
             _db.Movies.Add(obj);
             _db.SaveChanges();
 
             return RedirectToAction("Index");
-        }
+         }
+
 
         // GET: Movies
 
-        public async Task<IActionResult> Index(string movieGenre, string searchString)
+        public async Task<IActionResult> Index(string movieGenre = null, string searchString = null, int pg = 1)
         {
-            //  LINQ to get list of genres.
             IQueryable<string> genreQuery = from m in _db.Movies
                                             orderby m.Genre
                                             select m.Genre;
@@ -78,13 +77,27 @@ namespace TestWebshop.Controllers
 
             var movieGenreVM = new MovieGenreViewModel();
             movieGenreVM.genres = new SelectList(await genreQuery.Distinct().ToListAsync());
-            movieGenreVM.movies = await movies.ToListAsync();
+
+            const int pageSize = 4;
+            if (pg < 1)
+                pg = 1;
+
+            int recsCount = movies.Count();
+
+            var pager = new Pager(recsCount, pg, pageSize);
+
+            int recSkip = (pg - 1) * pageSize;
+
+            movieGenreVM.movies = movies.Skip(recSkip).Take(pager.PageSize).ToList();
+            movieGenreVM.pager = pager;
 
             return View(movieGenreVM);
+
         }
 
 
         // GET: Movies/Details
+
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -104,7 +117,6 @@ namespace TestWebshop.Controllers
         }
 
 
-
         //Edit
         //GET
         public async Task<IActionResult> Edit(int? id)
@@ -121,6 +133,7 @@ namespace TestWebshop.Controllers
             }
             return View(movie);
         }
+
 
         // POST: Movies/Edit/
 
@@ -157,9 +170,6 @@ namespace TestWebshop.Controllers
         }
 
 
-    
-
-
         // Delete
 
         public async Task<IActionResult> Delete(int? id)
@@ -193,13 +203,11 @@ namespace TestWebshop.Controllers
             return RedirectToAction("Index");
         }
 
+
         private bool MovieExists(int id)
         {
             return _db.Movies.Any(e => e.Id == id);
         }
-
-
-
 
 
         //popular
@@ -231,22 +239,12 @@ namespace TestWebshop.Controllers
         }
 
 
-
-
-
-
-
-
-
         //Oldest
-
         public ActionResult OldestMovies()
         {
             
-
             return View(_db.Movies.ToList());
         }
-
 
 
         public ActionResult LatestMovies()
@@ -258,16 +256,10 @@ namespace TestWebshop.Controllers
         }
 
 
-
-
-
-
         public IActionResult Import()
         {
             return View();
         }
-
-
 
 
         [HttpPost]
@@ -284,21 +276,6 @@ namespace TestWebshop.Controllers
         }
 
 
-
-
-
-
-
-
-
-
-        
-
-
-
-
-
     }
-
 
 }
