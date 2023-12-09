@@ -10,8 +10,7 @@ namespace TestWebshop.Models
         public SelectList genres;
         public string movieGenre { get; set; }
         public List<DisplayCartVM> CartItems { get; set; }
-
-
+        public Pager pager { get; set; }
 
     }
 }
