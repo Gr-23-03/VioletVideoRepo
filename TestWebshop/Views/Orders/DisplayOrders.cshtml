@@ -1,0 +1,29 @@
+﻿@model List<IGrouping<int, TestWebshop.Models.Database.Order>>
+
+@* @model IEnumerable<TestWebshop.Models.Database.Order> *@
+
+@{
+    ViewData["Title"] = "DisplayOrders";
+}
+
+<h2>Orders</h2>
+
+@foreach (var customerGroup in Model)
+{
+    var customer = customerGroup.First().Customer;
+@* 
+    <h3>Customer: @customer.FirstName *@
+        <h3>
+            Customer: @customer.FirstName 
+    </h3>
+
+    foreach (var item in customerGroup)
+    {
+        <p>
+            Orders ID: @item.Id <br />
+            Movie ID: @item.CustomerId<br />
+            Amount: $@item.OrderPrice <br />
+            Orders Date: @item.OrderDate
+        </p>
+    }
+}
