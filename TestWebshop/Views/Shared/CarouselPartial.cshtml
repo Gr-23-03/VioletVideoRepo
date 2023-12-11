@@ -9,9 +9,10 @@
         <div class="carousel-item active">
         <a asp-action="Details" asp-route-id="@Model[0].Id">
                 <img src="@Model[0].ImageURL" class="d-block w-100" style="height: 500px" />
-        <div class="carousel-caption text-danger fw-bold fs-1">
-                    <span style="text-shadow: 2px 2px 25px white">Placering @(1)</span><br />
-            @Model[0].Title <br /> @Model[0].Price kronor
+                <div class="text-danger fw-bold text-lg-center text-decoration-none">
+                    <span style="text-shadow: 2px 2px 25px white">Placering @(1)<br />
+                        @Model[0].Title <br /> @Model[0].Price kronor
+                    </span>
         </div>
         </a>
         </div>
@@ -20,11 +21,11 @@
         <div class="carousel-item">
             <a asp-action="Details" asp-route-id="@Model[i].Id">
             <img src="@Model[i].ImageURL" class="d-block w-100" style="height: 500px" />
-                <div class="carousel-caption text-danger fw-bold fs-1">
+                    <div class="text-danger fw-bold text-lg-center text-decoration-none">
                         <span style="text-shadow: 2px 2px 25px white">
-                            Placering @(i + 1)
-                        </span><br />
-                    @Model[i].Title <br /> @Model[i].Price kronor
+                            Placering @(i + 1)<br />
+                            @Model[i].Title <br /> @Model[i].Price kronor
+                        </span>
                  </div>
                  </a>
         </div>
