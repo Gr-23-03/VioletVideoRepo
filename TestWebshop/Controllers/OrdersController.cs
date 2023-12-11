@@ -167,6 +167,20 @@ namespace TestWebshop.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+
+        public ActionResult DisplayOrders()
+        {
+            var groupedOrders = _context.Orders.Include("Customer").Include("OrderRows")
+                .OrderBy(o => o.CustomerId)
+                .ThenBy(o => o.OrderDate)
+                .GroupBy(o => o.CustomerId)
+                .ToList();
+            return View(groupedOrders);
+        }
+
+
+
+
         private bool OrderExists(int id)
         {
           return (_context.Orders?.Any(e => e.Id == id)).GetValueOrDefault();

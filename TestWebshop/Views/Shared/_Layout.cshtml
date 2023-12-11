@@ -22,24 +22,47 @@
                 </button>
                 
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+
                     <ul class="navbar-nav flex-grow-1">
+                   
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Home" asp-action="Index">Home</a>
+                            <div class="dropdown">
+                                <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Home
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" asp-controller="Home" asp-action="Index" asp-route-orderBy="Home">Home</a></li>
+                                    <li><a class="dropdown-item" asp-controller="Home" asp-action="Contact" asp-route-orderBy="Contact">Contact</a></li>
+                                </ul>
+                            </div>
                         </li>
+
+
+
+
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Movie" asp-action="Index">Movies</a>
+                            <div class="dropdown">
+                                <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Customers
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" asp-controller="Customers" asp-action="Index" asp-route-orderBy="Create">Create</a></li>
+                                    <li><a class="dropdown-item" asp-controller="Orders" asp-action="DisplayOrders" asp-route-orderBy="Display">OrdersOfEachCustomer</a></li>
+                                </ul>
+                            </div>
                         </li>
-                     
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Home" asp-action="Contact">Contact</a>
-                        </li>
+
+
+
+
 
                         <li class="nav-item">
                         <div class="dropdown">
                             <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Choose
+                                Movies
                             </button>
                             <ul class="dropdown-menu">
+                                 <li><a class="dropdown-item" asp-controller="Movie" asp-action="Create" asp-route-orderBy="Create">Create</a></li>
                                 <li><a class="dropdown-item" asp-controller ="Movie" asp-action="LatestMovies" asp-route-orderBy="newest">NewMovies</a></li>
                                 <li><a class="dropdown-item" asp-controller="Movie" asp-action="OldestMovies" asp-route-orderBy="oldest">OldestMovies</a></li>
                                 <li><a class="dropdown-item" asp-controller="Movie" asp-action="PopularMovies" asp-route-orderBy="PopularMovies">PopularMovies</a></li>
@@ -47,14 +70,31 @@
                              
                             </ul>
                         </div>
-                    </div>
+                   
                 </li>
+
+
+                <li class="nav-item">
+                    <div class="dropdown">
+                        <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Orders
+                        </button>
+                        <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" asp-controller="Orders" asp-action="DisplayOrders" asp-route-orderBy="Display">OrdersOfEachCustomer</a></li>
+                        </ul>
+                    </div>
+                </div>
+                </li>
+
+
              
                         <li class="nav-item">
+                    
                             <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
                                 ShoppingCart
                                 <i class="bi bi-cart"></i>
                             </button>
+                    
                         </li>
 
                     @using (Html.BeginForm("Index", "Movie", FormMethod.Get, new { @class = "form-inline my-2 my-lg-0" }))
@@ -71,7 +111,7 @@
                
 
                 </div>
-            </div>
+            
         </nav>
     </header>
        <partial name="_OffcanvasCartPartial" />
