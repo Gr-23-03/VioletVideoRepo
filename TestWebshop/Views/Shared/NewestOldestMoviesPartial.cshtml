@@ -33,13 +33,13 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Price)
                 </td>
+                <td>
+                <a asp-action="AddToCart" asp-controller="ShopingCart" asp-route-id="@item.Id" class="btn btn-sm btn-outline-primary">Buy</a>
+                </td>
             </tr>
         }
     </tbody>
 </table>
-    
-
-Här ska lista om filmer visas!
 
 
 

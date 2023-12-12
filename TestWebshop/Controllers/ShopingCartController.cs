@@ -190,5 +190,18 @@ namespace TestWebshop.Controllers
         {
           return (_context.OrderRows?.Any(e => e.Id == id)).GetValueOrDefault();
         }
+
+
+
+
+
+
+
+        public IActionResult AddToCart (int id)
+        {
+
+            //Mor code for addingcart to season
+            return RedirectToAction("Details", "Orders");
+        }
     }
 }
