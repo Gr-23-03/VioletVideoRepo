@@ -1,0 +1,16 @@
+﻿@model IEnumerable<TestWebshop.Models.Database.Customer>
+
+@{
+    ViewData["Title"] = "Checkout";
+}
+
+<h1>Checkout</h1>
+<form asp-controller="Cart" asp-action="EmailControl" method="post">
+
+    <label>Email Address:</label>
+
+    <input type="text" name="email" required />
+
+    <button type="submit">Continue</button>
+
+</form>

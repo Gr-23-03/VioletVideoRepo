@@ -1,0 +1,29 @@
+﻿@model IEnumerable<TestWebshop.Models.Database.Customer>
+
+@{
+    ViewData["Title"] = "EmailControl";
+}
+
+<h1>EmailControl</h1>
+
+
+<p>Email: @ViewBag.Email</p>
+
+@if (ViewBag.CustomerExists)
+{
+    <p>Email already exists. Redirecting to Final Checkout...</p>
+    <script>
+        setTimeout(function () {
+            window.location.href = '@Url.Action("FinalCheckout", new { id = ViewBag.CustomerId })';
+        }, 3000);
+    </script>
+}
+else
+{
+    <p>Email does not exist. Redirecting to Create Customer...</p>
+    <script>
+        setTimeout(function () {
+            window.location.href = '@Url.Action("CreateCustomer")';
+        }, 3000);
+    </script>
+}
