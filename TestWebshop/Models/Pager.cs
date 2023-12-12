@@ -16,9 +16,9 @@
 
         }
 
-        public Pager(int totalMovies, int page, int pageSize = 5)
+        public Pager(int totalItems, int page, int pageSize = 3)
         {
-            int totalPages = (int)Math.Ceiling((decimal)totalMovies / (decimal)pageSize);
+            int totalPages = (int)Math.Ceiling((decimal)totalItems / (decimal)pageSize);
             int currentPage = page;
 
             const int maxPagesToShow = 5;
@@ -49,9 +49,17 @@
             TotalPages = totalPages;
             StartPage = startPage;
             EndPage = endPage;
-            TotalItems = totalMovies;
+            TotalItems = totalItems;
 
         }
+
+
+
+
+
+
+
+
 
 
     }

@@ -68,6 +68,7 @@ namespace TestWebshop.Controllers
 
         public IActionResult Contact()
         {
+
             return View();
         }
 

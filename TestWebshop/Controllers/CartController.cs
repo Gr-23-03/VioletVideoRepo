@@ -166,7 +166,70 @@ namespace TestWebshop.Controllers
 
         
 
-        
+        public IActionResult Checkout()
+        {
+
+            return View();   // view where user put in his/hers email address
+
+        }
+
+
+        public IActionResult EmailControl(string email)
+        {
+
+            // check if email already exist in customer table
+
+            // if exist goto finalCheckout method
+            // else goto CreateCustomer
+
+            var existingCustomer = _context.Customers.FirstOrDefault(c => c.EmailAddress == email);
+
+            if (existingCustomer != null)
+            {
+                // If the email exists, go to the final checkout method
+                return RedirectToAction(nameof(FinalCheckout), new { id = existingCustomer.Id });
+            }
+            else
+            {
+                // If the email doesn't exist, go to the create customer view
+                ViewBag.Email = email; // Pass the email to the CreateCustomer view
+                return View("CreateCustomer");
+            }
+        }
+
+
+        public IActionResult CreateCustomer()
+        {
+
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult CreateCustomer(Customer obj)
+        {
+            _context.Customers.Add(obj);
+            _context.SaveChanges();
+
+            // find id of this customer with this email address
+
+          
+            var customerId = _context.Customers.FirstOrDefault(c => c.EmailAddress== obj.EmailAddress)?.Id;
+
+            return RedirectToAction(nameof(FinalCheckout), new { id = customerId });
+
+
+        }
+
+
+        public IActionResult FinalCheckout(int id)  // costomerID
+        {
+            // save order with custId
+            // save orderRows with OrderID
+
+
+            return View();  // goto Thank You for the order! view
+        }
+
 
     }
 }

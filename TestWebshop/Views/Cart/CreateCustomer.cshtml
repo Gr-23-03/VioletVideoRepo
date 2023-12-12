@@ -1,0 +1,18 @@
+﻿@model TestWebshop.Models.Database.Customer
+
+@{
+    ViewData["Title"] = "CreateCustomer";
+}
+
+<h1>CreateCustomer</h1>
+
+
+<form asp-controller="Cart" asp-action="CreateCustomer" method="post">
+    
+    <label>Email:</label>
+    <input type="text" asp-for="EmailAddress" />
+   
+
+    <button type="submit">Create Customer</button>
+
+</form>
