@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using TestWebshop.Data;
 using TestWebshop.Models.Database;
+using TestWebshop.Models.ViewModels;
 
 namespace TestWebshop.Controllers
 {
@@ -26,6 +27,21 @@ namespace TestWebshop.Controllers
                           View(await _context.Customers.ToListAsync()) :
                           Problem("Entity set 'ApplicationDbContext.Customers'  is null.");
         }
+
+
+
+
+
+        public IActionResult AllCustomers()
+        {
+            var customers = _context.Customers.ToList(); 
+            return View(customers);
+        }
+
+
+
+
+
 
         // GET: Customers/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -154,6 +170,50 @@ namespace TestWebshop.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+
+
+
+
+
+
+        [Route("Customers/AllOrders/{email}")]
+        public IActionResult AllOrders(string email)
+        {
+            
+
+            var customerInfo = _context.Customers
+                .Where(c => c.EmailAddress == email)
+                .Select(c => new { c.Id, FullName = c.FirstName + " " + c.LastName })
+                .FirstOrDefault();
+
+            if (customerInfo == null)
+            {
+                return NotFound();
+            }
+
+            ViewData["Name"] = customerInfo.FullName;
+
+            var orders = _context.Orders
+                .Where(o => o.CustomerId == customerInfo.Id)
+                .ToList();
+
+            var jointbl = from o in orders
+                          join or in _context.OrderRows on o.Id equals or.OrderId
+                          join m in _context.Movies on or.MovieId equals m.Id
+                          select new { Date = o.OrderDate, Price = or.Price, Movie = m };
+
+            var query = from o in jointbl
+                        group o by o.Date into grp
+                        select new CustomerOrder()
+                        {
+                            Date = grp.Key,
+                            Total = grp.Sum(o => o.Price),
+                            Movies = grp.Select(o => o.Movie).ToList()
+                        };
+
+            return View(query);
+        }
+
 
         private bool CustomerExists(int id)
         {

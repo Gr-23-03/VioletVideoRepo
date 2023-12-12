@@ -1,0 +1,14 @@
+﻿@model IEnumerable<TestWebshop.Models.ViewModels.DisplayCartVM>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Cart</h1>
+<div>
+@foreach(var item in Model)
+{
+    <p>Id : </p>@item.Id <br />
+    <p>Qty : </p>@item.Quantity
+}
+</div>

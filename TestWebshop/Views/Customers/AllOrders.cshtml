@@ -1,0 +1,40 @@
+﻿@* @model IEnumerable<TestWebshop.Models.Database.Order> *@
+
+@model IEnumerable<TestWebshop.Models.ViewModels.CustomerOrder>
+
+
+  
+@{
+    ViewData["Title"] = "AllOrders";
+}
+
+<h1>Orders</h1>
+
+<h2>Welcome, @ViewData["Name"]!</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Total</th>
+            <th>Movies</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var order in Model)
+        {
+            <tr>
+                <td>@order.Date.ToShortDateString()</td>
+                <td>@order.Total.ToString("C")</td>
+                <td>
+                    <ul>
+                        @foreach (var movie in order.Movies)
+                        {
+                            <li>@movie.Title</li>
+                        }
+                    </ul>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

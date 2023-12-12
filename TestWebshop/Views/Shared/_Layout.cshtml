@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -7,84 +7,115 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/TestWebshop.styles.css" asp-append-version="true" />
-    
-    @* <style>
-        /* Optional: Add some basic styling for better appearance of search bar */
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin: 50px;
-        }
-
-        input[type="text"] {
-            padding: 10px;
-            width: 200px;
-        }
-
-        input[type="submit"] {
-            padding: 10px 15px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-    </style> *@
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
 </head>
+  
+  
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">TestWebshop</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">VioletVideo</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+                
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+
                     <ul class="navbar-nav flex-grow-1">
+                   
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Home" asp-action="Index">Home</a>
+                            <div class="dropdown">
+                                <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Home
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" asp-controller="Home" asp-action="Index" asp-route-orderBy="Home">Home</a></li>
+                                    <li><a class="dropdown-item" asp-controller="Home" asp-action="Contact" asp-route-orderBy="Contact">Contact</a></li>
+                                </ul>
+                            </div>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Movie" asp-action="Index">Movies</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Home" asp-action="MoviesListOrdered" asp-route-orderBy="newest">New</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Home" asp-action="MoviesListOrdered" asp-route-orderBy="oldest">Old</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Home" asp-action="Contact">Contact</a>
-                        </li>
-                        @* <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li> *@
-                    </ul>
-
-                        @* <partial name="_LoginPartial" /> *@
 
 
-                    @*  @using (Html.BeginForm("Index", "Movie", FormMethod.Get, new { @class = "form-inline my-2 my-lg-0" }))
-                      {
-                         <input class="form-control mr-sm-2" type="search" placeholder="Search Movies" name="searchString" aria-label="Search">
-                         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                      } *@
+
+
+                        <li class="nav-item">
+                            <div class="dropdown">
+                                <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Customers
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" asp-controller="Customers" asp-action="Index" asp-route-orderBy="Create">Create</a></li>
+                                    <li><a class="dropdown-item" asp-controller="Customers" asp-action="AllCustomers" asp-route-orderBy="AllCustomers">ListOfCustomers</a></li>
+                                </ul>
+                            </div>
+                        </li>
+
+
+
+
+
+                        <li class="nav-item">
+                        <div class="dropdown">
+                            <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Movies
+                            </button>
+                            <ul class="dropdown-menu">
+                                 <li><a class="dropdown-item" asp-controller="Movie" asp-action="Create" asp-route-orderBy="Create">Create</a></li>
+                                <li><a class="dropdown-item" asp-controller ="Movie" asp-action="LatestMovies" asp-route-orderBy="newest">NewMovies</a></li>
+                                <li><a class="dropdown-item" asp-controller="Movie" asp-action="OldestMovies" asp-route-orderBy="oldest">OldestMovies</a></li>
+                                <li><a class="dropdown-item" asp-controller="Movie" asp-action="PopularMovies" asp-route-orderBy="PopularMovies">PopularMovies</a></li>
+                                <li><a class="dropdown-item" asp-controller="Movie" asp-action="CheapestMovies" asp-route-orderBy="CheapestMovies">CheapestMovies</a></li>
+                             
+                            </ul>
+                        </div>
+                   
+                </li>
+
+
+                <li class="nav-item">
+                    <div class="dropdown">
+                        <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Orders
+                        </button>
+                        <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" asp-controller="Orders" asp-action="DisplayOrders" asp-route-orderBy="Display">OrdersOfEachCustomer</a></li>
+                        </ul>
+                    </div>
+                </div>
+                </li>
+
+
+             
+                        <li class="nav-item">
+                    
+                            <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+                                ShoppingCart
+                                <i class="bi bi-cart"></i>
+                            </button>
+                    
+                        </li>
 
                     @using (Html.BeginForm("Index", "Movie", FormMethod.Get, new { @class = "form-inline my-2 my-lg-0" }))
                     {
+          
                         <div class="input-group">
                             <input class="form-control" type="search" placeholder="Search Movies" name="searchString" aria-label="Search">
                             <div class="input-group-append">
                                 <button class="btn btn-outline-success" type="submit">Search</button>
                             </div>
                         </div>
+                   
                     }
+               
 
                 </div>
-            </div>
+            
         </nav>
     </header>
+       <partial name="_OffcanvasCartPartial" />
+
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
@@ -94,11 +125,17 @@
     <div id="content">
         @RenderBody()
     </div>
+
+   
    
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2023 - TestWebshop - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy;VioletVideo -  @DateTime.Now.Year <a asp-area="" asp-controller="Home" asp-action="Content">.Net Core MVC Project</a>
+            
         </div>
+        
+
+
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

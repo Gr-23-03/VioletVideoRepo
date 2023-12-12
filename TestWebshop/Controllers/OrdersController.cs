@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using TestWebshop.Data;
 using TestWebshop.Models.Database;
 
+
 namespace TestWebshop.Controllers
 {
     public class OrdersController : Controller
@@ -25,6 +26,11 @@ namespace TestWebshop.Controllers
             var applicationDbContext = _context.Orders.Include(o => o.Customer);
             return View(await applicationDbContext.ToListAsync());
         }
+
+
+
+        
+
 
         // GET: Orders/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -160,6 +166,20 @@ namespace TestWebshop.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+
+
+        public ActionResult DisplayOrders()
+        {
+            var groupedOrders = _context.Orders.Include("Customer").Include("OrderRows")
+                .OrderBy(o => o.CustomerId)
+                .ThenBy(o => o.OrderDate)
+                .GroupBy(o => o.CustomerId)
+                .ToList();
+            return View(groupedOrders);
+        }
+
+
+
 
         private bool OrderExists(int id)
         {

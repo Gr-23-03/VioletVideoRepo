@@ -56,21 +56,45 @@ namespace TestWebshop.Controllers
 
         // GET: Movies
 
-        public async Task<IActionResult> Index(string movieGenre, string searchString)
+        //public async Task<IActionResult> Index(string movieGenre, string searchString)
+        //{
+        //    //  LINQ to get list of genres.
+        //    IQueryable<string> genreQuery = from m in _db.Movies
+        //                                    orderby m.Genre
+        //                                    select m.Genre;
+
+        //    var movies = from m in _db.Movies
+        //                 select m;
+
+        //    if (!String.IsNullOrEmpty(searchString))
+        //    {
+        //        movies = movies.Where(s => s.Title.Contains(searchString));
+        //    }
+
+        //    if (!String.IsNullOrEmpty(movieGenre))
+        //    {
+        //        movies = movies.Where(x => x.Genre == movieGenre);
+        //    }
+
+        //    var movieGenreVM = new MovieGenreViewModel();
+        //    movieGenreVM.genres = new SelectList(await genreQuery.Distinct().ToListAsync());
+        //    movieGenreVM.movies = await movies.ToListAsync();
+
+        //    return View(movieGenreVM);
+        //}
+
+        public async Task<IActionResult> Index(string movieGenre = null, string searchString = null, int pg = 1)
         {
             //  LINQ to get list of genres.
             IQueryable<string> genreQuery = from m in _db.Movies
                                             orderby m.Genre
                                             select m.Genre;
-
             var movies = from m in _db.Movies
                          select m;
-
             if (!String.IsNullOrEmpty(searchString))
             {
                 movies = movies.Where(s => s.Title.Contains(searchString));
             }
-
             if (!String.IsNullOrEmpty(movieGenre))
             {
                 movies = movies.Where(x => x.Genre == movieGenre);
@@ -80,8 +104,25 @@ namespace TestWebshop.Controllers
             movieGenreVM.genres = new SelectList(await genreQuery.Distinct().ToListAsync());
             movieGenreVM.movies = await movies.ToListAsync();
 
+            const int pageSize = 5;
+            if (pg < 1)
+                pg = 1;
+
+            int recsCount = movies.Count();
+
+            var pager = new Pager(recsCount, pg, pageSize);
+
+            int recSkip = (pg - 1) * pageSize;
+
+            movieGenreVM.movies = movies.Skip(recSkip).Take(pager.PageSize).ToList();
+            movieGenreVM.pager = pager;
+
             return View(movieGenreVM);
+
         }
+
+
+
 
 
         // GET: Movies/Details
@@ -202,6 +243,12 @@ namespace TestWebshop.Controllers
 
 
 
+
+        //shop movies
+
+      
+
+
         //popular
 
         public ActionResult PopularMovies()
@@ -242,9 +289,10 @@ namespace TestWebshop.Controllers
 
         public ActionResult OldestMovies()
         {
-            
 
-            return View(_db.Movies.ToList());
+            var oldest = _db.Movies.OrderBy(obj => obj.ReleaseYear).ToList();
+            //return View(_db.Movies.ToList());
+            return View(oldest);
         }
 
 
@@ -256,6 +304,17 @@ namespace TestWebshop.Controllers
             return View(latest);
             
         }
+
+
+        public ActionResult CheapestMovies()
+        {
+
+            var cheapest = _db.Movies.OrderBy(obj => obj.Price).ToList();
+            //return View(_db.Movies.ToList());
+            return View(cheapest);
+        }
+
+
 
 
 
@@ -282,17 +341,6 @@ namespace TestWebshop.Controllers
             var movies = await _movieService.OmdbSearch(imdb);
             return View(movies);
         }
-
-
-
-
-
-
-
-
-
-
-        
 
 
 

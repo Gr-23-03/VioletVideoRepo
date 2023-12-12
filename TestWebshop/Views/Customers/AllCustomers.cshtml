@@ -1,0 +1,16 @@
+﻿@model IEnumerable<TestWebshop.Models.Database.Customer>
+
+@{
+    ViewData["Title"] = "AllCustomers";
+}
+
+<h2>All Customers</h2>
+
+<ul>
+    @foreach (var customer in Model)
+    {
+        <li>
+            @Html.ActionLink(customer.FirstName, "AllOrders", new { Email = customer.EmailAddress })
+        </li>
+    }
+</ul>
