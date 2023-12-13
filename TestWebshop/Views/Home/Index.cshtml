@@ -8,6 +8,7 @@
 
     <h1 class="display-4">Welcome</h1>
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
 
 
 <div class="row">
@@ -17,7 +18,7 @@
     </div>
 
     <div class="col-sm-12 col-md-8" style="box-shadow: 5px 5px 10px gray; margin: 0px; padding: 25px">
-        <a style="text-decoration: none; color: black" asp-controller="Movie" asp-action=""><h3 style="text-shadow: 5px 5px 10px red">Cheapest Movies:</h3></a>
+        <a style="text-decoration: none; color: black" asp-controller="Movie" asp-action="CheapestMovies"><h3 style="text-shadow: 5px 5px 10px red">Cheapest Movies:</h3></a>
         <partial name="CheapestMoviesPartial" model="@Model.CheapestMovies"></partial>   @* Cheapest Movies in table list (8 columns) *@
     </div>
 

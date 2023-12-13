@@ -15,7 +15,7 @@
                         @Model[0].Title <br /> @Model[0].Price kronor<br />
                        </span>
                     </div>
-                <a asp-action="AddToCart" asp-controller="ShopingCart" asp-route-id="@Model[0].Id" class="text-lg-center btn btn-sm btn-outline-primary text-center">Buy</a>
+                <a asp-action="AddToCart" asp-controller="Cart" asp-route-id="@Model[0].Id" class="text-lg-center btn btn-sm btn-outline-primary text-center">Buy</a>
             </a>
         </div>
     @for (int i = 1; i <= Model.Count - 1; i++)
@@ -29,7 +29,7 @@
                             @Model[i].Title <br /> @Model[i].Price kronor<br />
                         </span>
                     </div>
-                    <a asp-action="AddToCart" asp-controller="ShopingCart" asp-route-id="@Model[i].Id" class="btn btn-sm btn-outline-primary text-center">Buy</a>
+                    <a asp-action="AddToCart" asp-controller="Cart" asp-route-id="@Model[i].Id" class="btn btn-sm btn-outline-primary">Buy</a>
                  </a>
         </div>
         }

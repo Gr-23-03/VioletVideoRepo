@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using TestWebshop.Data;
+using TestWebshop.Models;
 using TestWebshop.Models.Database;
 using TestWebshop.Models.ViewModels;
 
@@ -20,13 +21,95 @@ namespace TestWebshop.Controllers
             _context = context;
         }
 
-        // GET: Customers
-        public async Task<IActionResult> Index()
+        //GET: Customers
+        //public async Task<IActionResult> Index()
+        //{
+        //    return _context.Customers != null ?
+        //                View(await _context.Customers.ToListAsync()) :
+        //                Problem("Entity set 'ApplicationDbContext.Customers'  is null.");
+        //}
+
+        //public async Task<IActionResult> Index(string searchString = null, int pg = 1)
+        //{
+        //    var customers = from c in _context.Customers
+        //                    select c;
+
+        //    if (!String.IsNullOrEmpty(searchString))
+        //    {
+        //        customers = customers.Where(c => c.Name.Contains(searchString));
+        //    }
+
+        //    var customerViewModel = new CustomerViewModel
+        //    {
+        //        Customers = await customers.ToListAsync(),
+        //    };
+
+        //    const int pageSize = 3;
+
+        //    if (pg < 1)
+        //        pg = 1;
+
+        //    int recsCount = customers.Count();
+
+        //    var pager = new Pager(recsCount, pg, pageSize);
+
+        //    int recSkip = (pg - 1) * pageSize;
+
+        //    customerViewModel.Customers = customers.Skip(recSkip).Take(pager.PageSize).ToList();
+        //    customerViewModel.Pager = pager;
+
+        //    return View(customerViewModel);
+        //}
+
+
+
+        public async Task<IActionResult> Index(string searchString = null, int pg = 1)
         {
-              return _context.Customers != null ? 
-                          View(await _context.Customers.ToListAsync()) :
-                          Problem("Entity set 'ApplicationDbContext.Customers'  is null.");
+            if (_context.Customers == null)
+            {
+                return Problem("Entity set 'ApplicationDbContext.Customers' is null.");
+            }
+
+            var customers = from c in _context.Customers
+                            select c;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                customers = customers.Where(c => c.FirstName.Contains(searchString));
+            }
+
+            var customerViewModel = new CustomerViewModel
+            {
+                customers = await customers.ToListAsync(),
+
+            };
+
+           var CustomerViewModel = new CustomerViewModel();
+            customerViewModel.customers = await customers.ToListAsync();
+
+
+
+            const int pageSize = 3;
+
+            if (pg < 1)
+                pg = 1;
+
+            int recsCount = customers.Count();
+
+            var pager = new Pager(recsCount, pg, pageSize);
+
+            int recSkip = (pg - 1) * pageSize;
+
+            customerViewModel.customers = customers.Skip(recSkip).Take(pager.PageSize).ToList();
+            customerViewModel.pager = pager;
+
+            return View(customerViewModel);
+
         }
+
+
+
+
 
 
 

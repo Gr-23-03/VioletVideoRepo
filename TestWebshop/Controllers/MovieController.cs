@@ -104,7 +104,7 @@ namespace TestWebshop.Controllers
             movieGenreVM.genres = new SelectList(await genreQuery.Distinct().ToListAsync());
             movieGenreVM.movies = await movies.ToListAsync();
 
-            const int pageSize = 5;
+            const int pageSize = 3;
             if (pg < 1)
                 pg = 1;
 
