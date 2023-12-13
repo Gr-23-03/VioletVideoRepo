@@ -19,6 +19,7 @@
                 <th>Date</th>
                 <th>Total</th>
                 <th>Movies</th>
+                <th>Price</th>
             </tr>
         </thead>
         <tbody>
@@ -33,6 +34,17 @@
                             @foreach (var movie in order.Movies)
                             {
                                 <li class="list-group-item">@movie.Title</li>
+                                
+                            }
+                        </ul>
+                    </td>
+
+                    <td>
+                        <ul class="list-group">
+                            @foreach (var movie in order.Movies)
+                            {
+                                <li class="list-group-item">@movie.Price</li>
+
                             }
                         </ul>
                     </td>
