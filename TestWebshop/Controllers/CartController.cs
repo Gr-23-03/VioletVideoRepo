@@ -208,12 +208,19 @@ namespace TestWebshop.Controllers
         [HttpPost]
         public IActionResult CreateCustomer(Customer obj)
         {
-            _context.Customers.Add(obj);
-            _context.SaveChanges();
+            if (ModelState.IsValid)
+            {
+                _context.Customers.Add(obj);
+                _context.SaveChanges();
+           }
+            else
+            {
+                return View(obj);
+            }
 
             // find id of this customer with this email address
 
-          
+
             var customerId = _context.Customers.FirstOrDefault(c => c.EmailAddress== obj.EmailAddress)?.Id;
 
             if (customerId != null)
@@ -225,7 +232,7 @@ namespace TestWebshop.Controllers
             {
                 //  where the customer ID is not found
                
-                return RedirectToAction("Create", "Customer");
+                return RedirectToAction("Create", "Customers");
             }       
 
         }
