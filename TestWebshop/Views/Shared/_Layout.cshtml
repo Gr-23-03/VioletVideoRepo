@@ -14,6 +14,7 @@
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">VioletVideo</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -24,6 +25,8 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
 
                     <ul class="navbar-nav flex-grow-1">
+                
+                        <!-- Home -->
 
                         <li class="nav-item">
                             <div class="dropdown">
@@ -39,12 +42,7 @@
 
 
 
-
-
-
-
-
-
+                        <!-- Customer -->
 
                         <li class="nav-item">
                             <div class="dropdown">
@@ -60,42 +58,48 @@
 
 
 
-
-
-                        <li class="nav-item">
-                            <div class="dropdown">
-                                <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Movies
-                                </button>
-                                <ul class="dropdown-menu">
-                                    @* <li><a class="dropdown-item" asp-controller="Movie" asp-action="Create" asp-route-orderBy="Create">Create</a></li> *@
-                                    <li><a class="dropdown-item" asp-controller="Movie" asp-action="LatestMovies" asp-route-orderBy="newest">New Movies</a></li>
-                                    <li><a class="dropdown-item" asp-controller="Movie" asp-action="OldestMovies" asp-route-orderBy="oldest">Oldest Movies</a></li>
-                                    <li><a class="dropdown-item" asp-controller="Movie" asp-action="PopularMovies" asp-route-orderBy="PopularMovies">Popular Movies</a></li>
-                                    <li><a class="dropdown-item" asp-controller="Movie" asp-action="CheapestMovies" asp-route-orderBy="CheapestMovies">Cheapest Movies</a></li>
-                                    <li><a class="dropdown-item" asp-controller="Movie" asp-action="Index" asp-route-orderBy="Movies">All Movies</a></li>
-
-
-                                </ul>
-                            </div>
-
-                        </li>
-
+                        <!-- Movie -->
 
                         <li class="nav-item">
-                            <div class="dropdown">
-                                <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Orders
-                                </button>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" asp-controller="Orders" asp-action="DisplayOrders" asp-route-orderBy="Display">OrdersOfEachCustomer</a></li>
-                                </ul>
-                            </div>
-                        </li>
+
+
+                        <div class="dropdown">
+                            <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Movies
+                            </button>
+                            <ul class="dropdown-menu">
+                                 
+                                <li><a class="dropdown-item" asp-controller ="Movie" asp-action="LatestMovies" asp-route-orderBy="newest">NewMovies</a></li>
+                                <li><a class="dropdown-item" asp-controller="Movie" asp-action="OldestMovies" asp-route-orderBy="oldest">OldestMovies</a></li>
+                                <li><a class="dropdown-item" asp-controller="Movie" asp-action="PopularMovies" asp-route-orderBy="PopularMovies">PopularMovies</a></li>
+                                <li><a class="dropdown-item" asp-controller="Movie" asp-action="CheapestMovies" asp-route-orderBy="CheapestMovies">CheapestMovies</a></li>
+                             
+                            </ul>
+                        </div>
+                   
+                      </li>
 
 
 
 
+                        <!-- order-->
+
+                <li class="nav-item">
+                    <div class="dropdown">
+                        <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Orders
+                        </button>
+                        <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" asp-controller="Orders" asp-action="DisplayOrders" asp-route-orderBy="Display">OrdersOfEachCustomer</a></li>
+                        </ul>
+                    </div>
+                </div>
+                </li>
+
+                <!-- Shopping Cart -->
+             
+
+    
                         <li class="nav-item">
 
                             <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
@@ -110,6 +114,7 @@
 
 
 
+                <!-- Search Form -->
 
                         @using (Html.BeginForm("Index", "Movie", FormMethod.Get, new { @class = "form-inline my-2 my-lg-0" }))
                         {
@@ -122,6 +127,8 @@
                             </div>
 
                         }
+
+                <!-- Admin Dropdown -->
 
 
 
@@ -139,6 +146,7 @@
                                             Customer
 
                                     <li><a class="dropdown-item" asp-controller="Customers" asp-action="Index" asp-route-orderBy="Create">Create</a></li>
+
                                     <li><a class="dropdown-item" asp-controller="Customers" asp-action="Index" asp-route-orderBy="Edit">Edit</a></li>
                                     <li><a class="dropdown-item" asp-controller="Customers" asp-action="AllCustomers" asp-route-orderBy="AllCustomers">ListOfCustomers</a></li>
 
@@ -147,9 +155,13 @@
 
                                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown2">
                                         <li><a class="dropdown-item" asp-controller="Customers" asp-action="Index" asp-route-orderBy="Create">Create</a></li>
-                                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+  
                                     </ul>
+
+
+                                   
+                                </ul>
+                  
 
                             </li>
                             <li>
@@ -178,25 +190,19 @@
 
 
 
-
-
+                    </li>         
 
 
                         </ul>
-
-
-
-
-
-
-
 
                 </div>
             </div>
         </nav>
 
     </header>
+
     <partial name="_OffcanvasCartPartial" />
+
 
     <div class="container">
         <main role="main" class="pb-3">

@@ -4,9 +4,10 @@
     ViewData["Title"] = "AllCustomers";
 }
 
-<h2>All Customers</h2>
+@* <h2>All Customers</h2>
+ *@
 
-<ol>
+@* <ol>
     @foreach (var customer in Model)
     {
         <li>
@@ -14,4 +15,27 @@
         </li>
         
     }
-</ol>
+</ol> *@
+
+
+<div class="container mt-5">
+    <h2 class="mb-4">All Customers</h2>
+
+    <div class="card">
+        <div class="card-body">
+            <ul class="list-group list-group-flush">
+                @foreach (var customer in Model)
+                {
+                    <li class="list-group-item">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span>@customer.FirstName @customer.LastName</span>
+                            <span>
+                                @Html.ActionLink("View Orders", "AllOrders", new { Email = customer.EmailAddress }, new { @class = "btn btn-primary btn-sm" })
+                            </span>
+                        </div>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+</div>
