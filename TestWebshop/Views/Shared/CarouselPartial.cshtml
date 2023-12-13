@@ -1,37 +1,43 @@
 ﻿@model List<TestWebshop.Models.Database.Movie>
 
+@{
+    string act = "Index";
+    string ctrl = "Home";
+}
 
 <div id="demo" class="carousel slide" data-bs-ride="carousel">
-    
+
 
     <!-- The slideshow/carousel -->
     <div class="carousel-inner">
         <div class="carousel-item active">
             <a asp-action="Details" asp-controller="Movie" asp-route-id="@Model[0].Id" style="text-decoration: none">
                 <img src="@Model[0].ImageURL" class="d-block w-100" style="height: 500px" />
-                    <div class="text-danger fw-bold text-center">
-                       <span style="text-shadow: 2px 2px 25px white">
+                <div class="text-danger fw-bold text-center">
+                    <span style="text-shadow: 2px 2px 25px white">
                         Placering @(1)<br />
                         @Model[0].Title <br /> @Model[0].Price kronor<br />
-                       </span>
-                    </div>
-                <a asp-action="AddToCart" asp-controller="Cart" asp-route-id="@Model[0].Id" class="text-lg-center btn btn-sm btn-outline-primary text-center">Buy</a>
+                    </span>
+                </div>
+                <a asp-action="AddToCart" asp-controller="Cart" asp-route-id="@Model[0].Id" asp-route-act="@act" asp-route-ctrl="@ctrl" class="text-lg-center btn btn-sm btn-outline-primary text-center">Buy</a>
             </a>
         </div>
-    @for (int i = 1; i <= Model.Count - 1; i++)
-    {
-        <div class="carousel-item">
+        @for (int i = 1; i <= Model.Count - 1; i++)
+        {
+
+
+            <div class="carousel-item">
                 <a asp-action="Details" asp-controller="Movie" asp-route-id="@Model[i].Id" style="text-decoration: none">
-            <img src="@Model[i].ImageURL" class="d-block w-100" style="height: 500px" />
+                    <img src="@Model[i].ImageURL" class="d-block w-100" style="height: 500px" />
                     <div class="text-danger fw-bold text-center">
                         <span style="text-shadow: 2px 2px 25px white">
                             Placering @(i + 1)<br />
                             @Model[i].Title <br /> @Model[i].Price kronor<br />
                         </span>
                     </div>
-                    <a asp-action="AddToCart" asp-controller="Cart" asp-route-id="@Model[i].Id" class="btn btn-sm btn-outline-primary">Buy</a>
-                 </a>
-        </div>
+                    <a asp-action="AddToCart" asp-controller="Cart" asp-route-id="@Model[i].Id" asp-route-act="@act" asp-route-ctrl="@ctrl" class="btn btn-sm btn-outline-primary text-center">Buy</a>
+                </a>
+            </div>
         }
     </div>
     <!-- Left and right controls/icons -->

@@ -41,6 +41,8 @@
                             itemHtml += '<button class="incrementBtn" data-movieid="' + item.id + '">+</button>';
                             itemHtml += '<button class="decrementBtn" data-movieid="' + item.id + '">-</button>';
                             itemHtml += '</div>';
+                            // Add space after each movie
+                            itemHtml += '<div class="movie-space"></div>';
 
                             $('#cartContent').append(itemHtml);
                         });
