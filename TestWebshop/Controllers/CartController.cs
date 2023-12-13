@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using TestWebshop.Data;
 using TestWebshop.Extensions;
 using TestWebshop.Models;
@@ -215,19 +216,82 @@ namespace TestWebshop.Controllers
           
             var customerId = _context.Customers.FirstOrDefault(c => c.EmailAddress== obj.EmailAddress)?.Id;
 
-            return RedirectToAction(nameof(FinalCheckout), new { id = customerId });
-
+            if (customerId != null)
+            {
+                // Redirect to the FinalCheckout action with the customer ID
+                return RedirectToAction(nameof(FinalCheckout), new { id = customerId });
+            }
+            else
+            {
+                //  where the customer ID is not found
+               
+                return RedirectToAction("Create", "Customer");
+            }       
 
         }
 
 
-        public IActionResult FinalCheckout(int id)  // costomerID
+        public IActionResult FinalCheckout(int id)  // customerID
         {
+
+
+            // take down session list last time
+            
+            var cartList = HttpContext.Session.Get<List<int>>("ShoppingCart");
+
+
+            // Calculate the total order price based on the items in the shopping cart
+            decimal TotalPrice = _context.Movies
+                .Where(m => cartList.Contains(m.Id))
+                .Sum(m => m.Price);
+
             // save order with custId
-            // save orderRows with OrderID
+
+            Order newOrder = new Order
+            {
+                CustomerId = id,
+                OrderDate = DateTime.Now,
+                OrderPrice = TotalPrice
 
 
-            return View();  // goto Thank You for the order! view
+
+            };
+            _context.Orders.Add(newOrder);
+            _context.SaveChanges();
+
+
+            // save orderRows with OrderID using a foreach loop
+
+            foreach (var cartItem in cartList)
+
+            {    
+
+                Movie movie = _context.Movies.Find(cartItem);
+
+            if(movie != null)
+                {
+                    OrderRow orderRow = new OrderRow
+                    {
+                        OrderId = newOrder.Id,
+                        MovieId = movie.Id,
+                        Price = movie.Price
+
+
+                    };
+
+                    _context.OrderRows.Add(orderRow);
+                }
+
+
+
+            }
+
+            _context.SaveChanges();
+
+            // Clearing the shopping cart session
+            HttpContext.Session.Remove("ShoppingCart");
+
+            return View();  // goto the Thank You for the order view
         }
 
 
