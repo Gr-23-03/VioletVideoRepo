@@ -68,7 +68,7 @@
                                     Movies
                                 </button>
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" asp-controller="Movie" asp-action="Create" asp-route-orderBy="Create">Create</a></li>
+                                    @* <li><a class="dropdown-item" asp-controller="Movie" asp-action="Create" asp-route-orderBy="Create">Create</a></li> *@
                                     <li><a class="dropdown-item" asp-controller="Movie" asp-action="LatestMovies" asp-route-orderBy="newest">New Movies</a></li>
                                     <li><a class="dropdown-item" asp-controller="Movie" asp-action="OldestMovies" asp-route-orderBy="oldest">Oldest Movies</a></li>
                                     <li><a class="dropdown-item" asp-controller="Movie" asp-action="PopularMovies" asp-route-orderBy="PopularMovies">Popular Movies</a></li>
