@@ -17,6 +17,7 @@
                         <a asp-action="AddToCart" asp-controller="Cart" asp-route-id="@Model[0].Id" class="btn btn-sm btn-outline-primary ">Buy</a>
                     </div>
             </a>
+                <a asp-action="AddToCart" asp-controller="Cart" asp-route-id="@Model[0].Id" class="text-lg-center btn btn-sm btn-outline-primary text-center">Buy</a>
         </div>
     @for (int i = 1; i <= Model.Count - 1; i++)
     {
