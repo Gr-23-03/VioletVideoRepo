@@ -23,17 +23,24 @@ namespace TestWebshop.Controllers
         {
             // var mostPopular = _context.OrderRow.............
 
+          
+
+
+
             var vm = new HomeIndexVM()
             {
                 NewestMovies = _context.Movies.OrderByDescending(m => m.ReleaseYear).ThenBy(m => m.Title).Take(5).ToList(),
                 CheapestMovies = _context.Movies.OrderBy(m => m.Price).ThenBy(m => m.Title).Take(5).ToList(),
                 OldestMovies = _context.Movies.OrderBy(m => m.ReleaseYear).ThenBy(m => m.Title).Take(5).ToList(),
-                //MostPopularMovies = mostPopular.ToList()
+                //MostPopularMovies = query;
             };
 
 
             return View(vm);
         }
+
+       
+
 
         public IActionResult Privacy()
         {
