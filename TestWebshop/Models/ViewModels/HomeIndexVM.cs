@@ -11,7 +11,7 @@ namespace TestWebshop.Models.ViewModels
 
         public List<Movie> CheapestMovies { get; set; }
 
-        public List<Movie> MostPopularMovies { get; set; }
+        public CarouselMostPopularVM MostPopularMovies { get; set; }
 
 
         public HomeIndexVM()
