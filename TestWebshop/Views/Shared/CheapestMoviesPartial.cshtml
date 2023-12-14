@@ -1,5 +1,10 @@
 ﻿@model List<TestWebshop.Models.Database.Movie>
 
+@{
+    string act = "Index";
+    string ctrl = "Home";
+}
+
 <table class="table">
     <thead>
         <tr>
@@ -24,11 +29,11 @@
             <tr>
                 <td>
                     <a asp-action="Details" asp-controller="Movie" asp-route-id="@item.Id">
-                    <img src="@item.ImageURL" alt="Poster for the movie @item.Title" style="width: 50px">
+                        <img src="@item.ImageURL" alt="Poster for the movie @item.Title" style="width: 50px">
                     </a>
                 </td>
                 <td>
-                    <a asp-action="Details" asp-controller="Movie" asp-route-id="@item.Id">@item.Title</a>
+                    <a asp-action="Details" asp-controller="Movie" asp-route-id="@item.Id" style="text-decoration: none">@item.Title</a>
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.ReleaseYear)
@@ -37,7 +42,7 @@
                     @Html.DisplayFor(modelItem => item.Price)
                 </td>
                 <td>
-                    <a asp-action="AddToCart" asp-controller="Cart" asp-route-id="@item.Id" class="btn btn-sm btn-outline-primary">Buy</a>
+                    <a asp-action="AddToCart" asp-controller="Cart" asp-route-id="@item.Id" asp-route-act="@act" asp-route-ctrl="@ctrl" class="btn btn-sm btn-outline-primary">Buy</a>
                 </td>
             </tr>
         }
@@ -45,4 +50,4 @@
 </table>
 
 
- 
+

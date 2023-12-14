@@ -41,6 +41,8 @@
                             itemHtml += '<button class="incrementBtn" data-movieid="' + item.id + '">+</button>';
                             itemHtml += '<button class="decrementBtn" data-movieid="' + item.id + '">-</button>';
                             itemHtml += '</div>';
+                            // Add space after each movie
+                            itemHtml += '<div class="movie-space"></div>';
 
                             $('#cartContent').append(itemHtml);
                         });
@@ -96,7 +98,7 @@
     </div>
 
     
-   @*  <a asp-action="Checkout" asp-controller="Cart" class="btn btn-primary btn-lg mt-5"></a> *@
+  
 
     <a asp-action="Checkout" asp-controller="Cart" class="btn btn-primary btn-lg mt-5">Proceed to Checkout</a>
    

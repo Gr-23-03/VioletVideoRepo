@@ -23,3 +23,7 @@ body {
    
     
 }
+/* spacing between items added to shopping cart*/
+.movie-space {
+    height: 70px;
+}

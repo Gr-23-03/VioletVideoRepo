@@ -1,8 +1,12 @@
 ﻿@model List<TestWebshop.Models.Database.Movie>
 
+@{
+    string act = "Index";
+    string ctrl = "Home";
+}
 
 <div id="demo" class="carousel slide" data-bs-ride="carousel">
-    
+
 
     <!-- The slideshow/carousel -->
     <div class="carousel-inner">
@@ -24,16 +28,19 @@
                 <a asp-action="Details" asp-controller="Movie" asp-route-id="@Model[i].Id" class="text-danger fw-bold" style="text-decoration: none">
             <img src="@Model[i].ImageURL" class="d-block w-100" style="height: 500px" />
                     <div class="text-center">
+
                         <span style="text-shadow: 2px 2px 25px white">
                             Placering @(i + 1)<br />
                             @Model[i].Title <br /> @Model[i].Price kronor<br />
                             </span>
                             <a asp-action="AddToCart" asp-controller="Cart" asp-route-id="@Model[i].Id" class="btn btn-sm btn-outline-primary">Buy</a>
                     </div>
+
                 </a>
         </div>
     }
     </div>
+   
     <!-- Left and right controls/icons -->
     <button class="carousel-control-prev" type="button" data-bs-target="#demo" data-bs-slide="prev">
         <span class="carousel-control-prev-icon"></span>
